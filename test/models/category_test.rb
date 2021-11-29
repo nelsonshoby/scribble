@@ -12,7 +12,7 @@ class CategoryTest < ActiveSupport::TestCase
   end
 
   def test_category_should_not_be_valid_and_saved_without_name
-    @category.name = " "
+    @category.name = nil
     assert_not @category.valid?
     assert_includes @category.errors.full_messages, "Name can't be blank"
   end
