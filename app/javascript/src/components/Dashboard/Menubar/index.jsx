@@ -13,20 +13,25 @@ const Menubar = () => {
   const [isSearchCollapsed, setIsSearchCollapsed] = useState(true);
   const [isInputCollapsed, setIsInputCollapsed] = useState(false);
   const [newCategory, setNewCategory] = useState("");
-  const [categoryList, setCategoryList] = useState();
+  const [categoryList, setCategoryList] = useState([]);
+  const [searchCategory, setSearchCategory] = useState("");
 
   const listCategories = async () => {
     try {
       const response = await categoryApi.index();
-      Logger.warn("response is", response.data);
+      Logger.warn("response is", response.data.category);
       setCategoryList(response.data.category);
     } catch (error) {
       Logger.error(error);
     }
   };
+
   useEffect(() => {
     listCategories();
   }, []);
+  useEffect(() => {
+    Logger.warn("categoryList is", categoryList);
+  }, [categoryList]);
 
   const handleSubmit = async () => {
     try {
@@ -74,7 +79,11 @@ const Menubar = () => {
         </MenuBar.SubTitle>
         <MenuBar.Search
           collapse={isSearchCollapsed}
-          onCollapse={() => setIsSearchCollapsed(true)}
+          onCollapse={() => {
+            setIsSearchCollapsed(true);
+            setSearchCategory("");
+          }}
+          onChange={e => setSearchCategory(e.target.value)}
         />
 
         {isInputCollapsed && (
@@ -95,9 +104,13 @@ const Menubar = () => {
             />
           </div>
         )}
-        {categoryList?.map((category, index) => (
-          <MenuBar.Block label={category.name} count={80} key={index} />
-        ))}
+        {categoryList
+          ?.filter(category =>
+            category.name.toLowerCase().includes(searchCategory.toLowerCase())
+          )
+          .map((category, index) => (
+            <MenuBar.Block label={category.name} count={80} key={index} />
+          ))}
       </MenuBar>
     </div>
   );
