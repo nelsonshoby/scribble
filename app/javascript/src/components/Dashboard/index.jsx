@@ -16,7 +16,7 @@ const Dashboard = () => {
         <div className="m-8 overflow-auto flex-col ">
           <Subheading />
           <Typography style="h4" className="mt-4 mb-4">
-            67 Articles{" "}
+            67 Articles
           </Typography>
           <ArticleTable />
         </div>
