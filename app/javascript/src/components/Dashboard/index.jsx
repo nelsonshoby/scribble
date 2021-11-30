@@ -1,6 +1,8 @@
 import React from "react";
 
-import Main from "./Main";
+import { Typography } from "@bigbinary/neetoui/v2";
+
+import ArticleTable from "./ArticleTable";
 import Menubar from "./Menubar";
 import Navbar from "./Navbar";
 import Subheading from "./Subheading";
@@ -11,9 +13,12 @@ const Dashboard = () => {
       <Navbar />
       <div className="flex">
         <Menubar />
-        <div className="m-8 overflow-auto ">
+        <div className="m-8 overflow-auto flex-col ">
           <Subheading />
-          <Main className="mt-2" />
+          <Typography style="h4" className="mt-4 mb-4">
+            67 Articles{" "}
+          </Typography>
+          <ArticleTable />
         </div>
       </div>
     </div>

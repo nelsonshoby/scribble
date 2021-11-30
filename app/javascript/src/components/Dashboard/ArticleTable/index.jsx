@@ -3,7 +3,7 @@ import React from "react";
 import { Delete, Edit } from "@bigbinary/neeto-icons";
 import { Table } from "@bigbinary/neetoui/v2";
 
-const Main = () => {
+const ArticleTable = () => {
   return (
     <div className="h-full">
       <Table
@@ -50,21 +50,21 @@ const Main = () => {
             date: "3/4/5",
             author: "Nelson",
             category: "Human",
-            status: "single",
+            status: "Published",
           },
           {
-            title: "Hello",
+            title: "Hai",
             date: "3/4/5",
             author: "Arun",
             category: "Human",
-            status: "single",
+            status: "Published",
           },
           {
-            title: "Hello",
+            title: "Morning",
             date: "3/4/5",
             author: "Sanal",
             category: "Human",
-            status: "single",
+            status: "Draft",
           },
         ]}
       ></Table>
@@ -72,4 +72,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default ArticleTable;
