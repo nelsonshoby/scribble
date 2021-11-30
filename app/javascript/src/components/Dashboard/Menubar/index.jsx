@@ -109,7 +109,7 @@ const Menubar = () => {
             category.name.toLowerCase().includes(searchCategory.toLowerCase())
           )
           .map((category, index) => (
-            <MenuBar.Block label={category.name} count={80} key={index} />
+            <MenuBar.Block label={category.name} key={index} />
           ))}
       </MenuBar>
     </div>
