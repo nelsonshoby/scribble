@@ -1,13 +1,13 @@
 import React from "react";
 
+import Menubar from "./Menubar";
 import Navbar from "./Navbar";
-import Sidebar from "./Sidebar";
 
 const Dashboard = () => {
   return (
     <div>
       <Navbar />
-      <Sidebar />
+      <Menubar />
     </div>
   );
 };
