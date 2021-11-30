@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 class CategoriesController < ApplicationController
+  def index
+    @category = Category.all
+    puts "kjkhkjhkjh"
+  end
+
   def create
     if (category = Category.new(category_params)) && category.save
       render status: :ok, json: {

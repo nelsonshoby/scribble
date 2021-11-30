@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Search, Plus, Check } from "@bigbinary/neeto-icons";
 import { Typography, Input } from "@bigbinary/neetoui/v2";
@@ -13,9 +13,22 @@ const Menubar = () => {
   const [isSearchCollapsed, setIsSearchCollapsed] = useState(true);
   const [isInputCollapsed, setIsInputCollapsed] = useState(false);
   const [newCategory, setNewCategory] = useState("");
+  const [categoryList, setCategoryList] = useState();
+
+  const listCategories = async () => {
+    try {
+      const response = await categoryApi.index();
+      Logger.warn("response is", response.data);
+      setCategoryList(response.data.category);
+    } catch (error) {
+      Logger.error(error);
+    }
+  };
+  useEffect(() => {
+    listCategories();
+  }, []);
 
   const handleSubmit = async () => {
-    Logger.warn("submitted data", newCategory);
     try {
       if (newCategory.length !== 0) {
         await categoryApi.create({ name: newCategory });
@@ -82,10 +95,9 @@ const Menubar = () => {
             />
           </div>
         )}
-
-        <MenuBar.Block label="Europe" count={80} />
-        <MenuBar.Block label="Middle-East" count={60} />
-        <MenuBar.Block label="Asia" count={60} />
+        {categoryList?.map((category, index) => (
+          <MenuBar.Block label={category.name} count={80} key={index} />
+        ))}
       </MenuBar>
     </div>
   );

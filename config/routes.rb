@@ -2,7 +2,7 @@
 
 Rails.application.routes.draw do
   defaults format: :json do
-    resource :categories, only: %i[create]
+    resources :categories, only: %i[create index]
   end
   root "home#index"
   get "*path", to: "home#index", via: :all
