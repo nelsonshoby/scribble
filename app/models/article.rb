@@ -2,6 +2,6 @@
 
 class Article < ApplicationRecord
   belongs_to :category
-  enum status: { Draft: 0, Published: 1 }
+  enum status: [:Draft, :Published]
   validates :title, :content, :status, presence: true
 end

@@ -6,17 +6,15 @@ import { MenuBar } from "@bigbinary/neetoui/v2/layouts";
 import Logger from "js-logger";
 import { toast } from "react-toastify";
 
-import articleApi from "../../../apis/article";
 import categoryApi from "../../../apis/category";
 import { TOASTR_OPTIONS } from "../../../constants";
 
-const Menubar = () => {
+const Menubar = ({ setSelectedStatus, setSelectedCategory, categoryCount }) => {
   const [isSearchCollapsed, setIsSearchCollapsed] = useState(true);
   const [isInputCollapsed, setIsInputCollapsed] = useState(false);
   const [newCategory, setNewCategory] = useState("");
   const [categoryList, setCategoryList] = useState([]);
   const [searchCategory, setSearchCategory] = useState("");
-  const [categoryCount, setCategoryCount] = useState([]);
   const articleStatus = ["All", "Draft", "Published"];
 
   const ListCategories = async () => {
@@ -29,26 +27,9 @@ const Menubar = () => {
     }
   };
 
-  const ListArticles = async () => {
-    try {
-      const response = await articleApi.index();
-      Logger.warn("response", response);
-      const allCount = response.data.draft + response.data.published;
-      const draftCount = response.data.draft;
-      const publishedCount = response.data.published;
-      setCategoryCount([allCount, draftCount, publishedCount]);
-    } catch (error) {
-      Logger.error(error);
-    }
-  };
-
   useEffect(() => {
     ListCategories();
   }, [newCategory]);
-
-  useEffect(() => {
-    ListArticles();
-  }, []);
 
   const handleSubmit = async () => {
     try {
@@ -63,8 +44,15 @@ const Menubar = () => {
   return (
     <div className="flex">
       <MenuBar showMenu={true} title="Article">
-        {articleStatus.map((ele, index) => (
-          <MenuBar.Block label={ele} count={categoryCount[index]} key={index} />
+        {articleStatus.map((status, index) => (
+          <MenuBar.Block
+            label={status}
+            count={categoryCount[index]}
+            key={index}
+            onClick={() => {
+              setSelectedStatus(status);
+            }}
+          />
         ))}
 
         <MenuBar.SubTitle
@@ -131,6 +119,9 @@ const Menubar = () => {
               label={category.name}
               key={index}
               count={category.count}
+              onClick={() => {
+                setSelectedCategory(category.name);
+              }}
             />
           ))}
       </MenuBar>

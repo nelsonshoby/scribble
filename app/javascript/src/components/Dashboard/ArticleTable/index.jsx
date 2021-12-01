@@ -6,14 +6,26 @@ import Logger from "js-logger";
 
 import articleApi from "../../../apis/article";
 
-const ArticleTable = () => {
+const ArticleTable = ({
+  selectedStatus,
+  selectedCategory,
+  setCategoryCount,
+}) => {
   const [articleData, setArticleData] = useState([]);
 
   const ListArticles = async () => {
     try {
       const response = await articleApi.index();
-      Logger.warn("response in article", response.data);
+      Logger.warn("response in article", response.data.articleData);
       setArticleData(response.data.articleData);
+      const allStatusCount = response.data.draft + response.data.published;
+      const draftStatustCount = response.data.draft;
+      const publishedStatusCount = response.data.published;
+      setCategoryCount([
+        allStatusCount,
+        draftStatustCount,
+        publishedStatusCount,
+      ]);
     } catch (error) {
       Logger.error(error);
     }
@@ -22,6 +34,23 @@ const ArticleTable = () => {
   useEffect(() => {
     ListArticles();
   }, []);
+
+  useEffect(() => {
+    Logger.warn("selectedStatus", selectedStatus);
+    Logger.warn("selectedCategory", selectedCategory);
+  }, [selectedStatus, selectedCategory]);
+
+  const RowData = articleData
+    .filter(article => {
+      if (selectedCategory) return selectedCategory === article.category;
+
+      return true;
+    })
+    .filter(article => {
+      if (selectedStatus !== "All") return selectedStatus === article.status;
+
+      return true;
+    });
 
   return (
     <div className="h-full">
@@ -63,7 +92,7 @@ const ArticleTable = () => {
             ),
           },
         ]}
-        rowData={articleData}
+        rowData={RowData}
       ></Table>
     </div>
   );
