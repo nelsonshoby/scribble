@@ -10,6 +10,7 @@ const Subheading = () => {
         <Input prefix={<Search />} placeholder="Search article title" />
 
         <Dropdown
+          closeOnSelect={false}
           className="ml-2 "
           buttonProps={{
             size: "large",

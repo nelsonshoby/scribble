@@ -1,9 +1,57 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { Delete, Edit } from "@bigbinary/neeto-icons";
 import { Table } from "@bigbinary/neetoui/v2";
+import Logger from "js-logger";
 
-const ArticleTable = () => {
+import articleApi from "../../../apis/article";
+
+const ArticleTable = ({
+  selectedStatus,
+  selectedCategory,
+  setCategoryCount,
+}) => {
+  const [articleData, setArticleData] = useState([]);
+
+  const ListArticles = async () => {
+    try {
+      const response = await articleApi.index();
+      Logger.warn("response in article", response.data.articleData);
+      setArticleData(response.data.articleData);
+      const allStatusCount = response.data.draft + response.data.published;
+      const draftStatustCount = response.data.draft;
+      const publishedStatusCount = response.data.published;
+      setCategoryCount([
+        allStatusCount,
+        draftStatustCount,
+        publishedStatusCount,
+      ]);
+    } catch (error) {
+      Logger.error(error);
+    }
+  };
+
+  useEffect(() => {
+    ListArticles();
+  }, []);
+
+  useEffect(() => {
+    Logger.warn("selectedStatus", selectedStatus);
+    Logger.warn("selectedCategory", selectedCategory);
+  }, [selectedStatus, selectedCategory]);
+
+  const RowData = articleData
+    .filter(article => {
+      if (selectedCategory) return selectedCategory === article.category;
+
+      return true;
+    })
+    .filter(article => {
+      if (selectedStatus !== "All") return selectedStatus === article.status;
+
+      return true;
+    });
+
   return (
     <div className="h-full">
       <Table
@@ -44,29 +92,7 @@ const ArticleTable = () => {
             ),
           },
         ]}
-        rowData={[
-          {
-            title: "Hello",
-            date: "3/4/5",
-            author: "Nelson",
-            category: "Human",
-            status: "Published",
-          },
-          {
-            title: "Hai",
-            date: "3/4/5",
-            author: "Arun",
-            category: "Human",
-            status: "Published",
-          },
-          {
-            title: "Morning",
-            date: "3/4/5",
-            author: "Sanal",
-            category: "Human",
-            status: "Draft",
-          },
-        ]}
+        rowData={RowData}
       ></Table>
     </div>
   );
