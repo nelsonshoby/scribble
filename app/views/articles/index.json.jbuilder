@@ -4,7 +4,6 @@ json.articleData @articles do |article|
   json.author "Nelson"
   json.category article.category.name
   json.status article.status
-
 end
 json.draft @articles.where(status: "Draft").count
 json.published @articles.where(status: "Published").count

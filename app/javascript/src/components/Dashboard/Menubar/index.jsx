@@ -16,8 +16,8 @@ const Menubar = () => {
   const [newCategory, setNewCategory] = useState("");
   const [categoryList, setCategoryList] = useState([]);
   const [searchCategory, setSearchCategory] = useState("");
-  const [draftCount, setDraftCount] = useState();
-  const [publishedCount, setPublishedCount] = useState();
+  const [categoryCount, setCategoryCount] = useState([]);
+  const articleStatus = ["All", "Draft", "Published"];
 
   const ListCategories = async () => {
     try {
@@ -32,10 +32,11 @@ const Menubar = () => {
   const ListArticles = async () => {
     try {
       const response = await articleApi.index();
-      Logger.warn("draft", response.data.draft);
-      Logger.warn("published", response.data.published);
-      setDraftCount(response.data.draft);
-      setPublishedCount(response.data.published);
+      Logger.warn("response", response);
+      const allCount = response.data.draft + response.data.published;
+      const draftCount = response.data.draft;
+      const publishedCount = response.data.published;
+      setCategoryCount([allCount, draftCount, publishedCount]);
     } catch (error) {
       Logger.error(error);
     }
@@ -62,9 +63,9 @@ const Menubar = () => {
   return (
     <div className="flex">
       <MenuBar showMenu={true} title="Article">
-        <MenuBar.Block label="All" count={draftCount + publishedCount} active />
-        <MenuBar.Block label="Draft" count={draftCount} />
-        <MenuBar.Block label="Published" count={publishedCount} />
+        {articleStatus.map((ele, index) => (
+          <MenuBar.Block label={ele} count={categoryCount[index]} key={index} />
+        ))}
 
         <MenuBar.SubTitle
           iconProps={[
