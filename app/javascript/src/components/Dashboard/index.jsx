@@ -16,6 +16,8 @@ const Dashboard = () => {
       <Navbar />
       <div className="flex">
         <Menubar
+          selectedStatus={selectedStatus}
+          selectedCategory={selectedCategory}
           setSelectedStatus={setSelectedStatus}
           setSelectedCategory={setSelectedCategory}
           categoryCount={categoryCount}

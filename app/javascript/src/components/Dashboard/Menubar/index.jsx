@@ -9,7 +9,13 @@ import { toast } from "react-toastify";
 import categoryApi from "../../../apis/category";
 import { TOASTR_OPTIONS } from "../../../constants";
 
-const Menubar = ({ setSelectedStatus, setSelectedCategory, categoryCount }) => {
+const Menubar = ({
+  setSelectedStatus,
+  setSelectedCategory,
+  categoryCount,
+  selectedStatus,
+  selectedCategory,
+}) => {
   const [isSearchCollapsed, setIsSearchCollapsed] = useState(true);
   const [isInputCollapsed, setIsInputCollapsed] = useState(false);
   const [newCategory, setNewCategory] = useState("");
@@ -49,8 +55,11 @@ const Menubar = ({ setSelectedStatus, setSelectedCategory, categoryCount }) => {
             label={status}
             count={categoryCount[index]}
             key={index}
+            active={status === selectedStatus}
             onClick={() => {
-              setSelectedStatus(status);
+              status === selectedStatus
+                ? setSelectedStatus("All")
+                : setSelectedStatus(status);
             }}
           />
         ))}
@@ -119,8 +128,11 @@ const Menubar = ({ setSelectedStatus, setSelectedCategory, categoryCount }) => {
               label={category.name}
               key={index}
               count={category.count}
+              active={category.name === selectedCategory}
               onClick={() => {
-                setSelectedCategory(category.name);
+                category.name === selectedCategory
+                  ? setSelectedCategory(null)
+                  : setSelectedCategory(category.name);
               }}
             />
           ))}
