@@ -12,7 +12,7 @@ const ArticleTable = () => {
   const ListArticles = async () => {
     try {
       const response = await articleApi.index();
-      Logger.warn("response in article", response.data.articleData);
+      Logger.warn("response in article", response.data);
       setArticleData(response.data.articleData);
     } catch (error) {
       Logger.error(error);

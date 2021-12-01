@@ -1,2 +1,6 @@
 
-json.category @categories
+json.category @categories do |category|
+  json.extract! category, :id, :name
+  json.count category.articles.count
+  
+end
