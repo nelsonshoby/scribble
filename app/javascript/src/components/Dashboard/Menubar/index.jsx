@@ -35,12 +35,13 @@ const Menubar = ({
 
   useEffect(() => {
     ListCategories();
-  }, [newCategory]);
+  }, []);
 
   const handleSubmit = async () => {
     try {
       if (newCategory.length !== 0) {
         await categoryApi.create({ name: newCategory });
+        ListCategories();
       } else toast.error("Category name can't be blank.", TOASTR_OPTIONS);
     } catch (error) {
       Logger.error(error);
