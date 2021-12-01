@@ -1,9 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { Delete, Edit } from "@bigbinary/neeto-icons";
 import { Table } from "@bigbinary/neetoui/v2";
+import Logger from "js-logger";
+
+import articleApi from "../../../apis/article";
 
 const ArticleTable = () => {
+  const [articleData, setArticleData] = useState([]);
+
+  const ListArticles = async () => {
+    try {
+      const response = await articleApi.index();
+      Logger.warn("response in article", response.data.articleData);
+      setArticleData(response.data.articleData);
+    } catch (error) {
+      Logger.error(error);
+    }
+  };
+
+  useEffect(() => {
+    ListArticles();
+  }, []);
+
   return (
     <div className="h-full">
       <Table
@@ -44,29 +63,7 @@ const ArticleTable = () => {
             ),
           },
         ]}
-        rowData={[
-          {
-            title: "Hello",
-            date: "3/4/5",
-            author: "Nelson",
-            category: "Misc",
-            status: "Published",
-          },
-          {
-            title: "Hai",
-            date: "3/4/5",
-            author: "Arun",
-            category: "Misc",
-            status: "Published",
-          },
-          {
-            title: "Morning",
-            date: "3/4/5",
-            author: "Sanal",
-            category: "Security & Privacy",
-            status: "Draft",
-          },
-        ]}
+        rowData={articleData}
       ></Table>
     </div>
   );

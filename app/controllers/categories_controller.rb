@@ -2,8 +2,7 @@
 
 class CategoriesController < ApplicationController
   def index
-    @category = Category.all
-    puts "kjkhkjhkjh"
+    @categories = Category.all
   end
 
   def create

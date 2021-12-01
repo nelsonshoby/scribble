@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { Search, Plus, Check } from "@bigbinary/neeto-icons";
+import { Search, Plus, Check, Close } from "@bigbinary/neeto-icons";
 import { Typography, Input } from "@bigbinary/neetoui/v2";
 import { MenuBar } from "@bigbinary/neetoui/v2/layouts";
 import Logger from "js-logger";
@@ -16,7 +16,7 @@ const Menubar = () => {
   const [categoryList, setCategoryList] = useState([]);
   const [searchCategory, setSearchCategory] = useState("");
 
-  const listCategories = async () => {
+  const ListCategories = async () => {
     try {
       const response = await categoryApi.index();
       Logger.warn("response is", response.data.category);
@@ -27,11 +27,8 @@ const Menubar = () => {
   };
 
   useEffect(() => {
-    listCategories();
-  }, []);
-  useEffect(() => {
-    Logger.warn("categoryList is", categoryList);
-  }, [categoryList]);
+    ListCategories();
+  }, [newCategory]);
 
   const handleSubmit = async () => {
     try {
@@ -60,7 +57,7 @@ const Menubar = () => {
               },
             },
             {
-              icon: Plus,
+              icon: isInputCollapsed ? Close : Plus,
               onClick: () => {
                 setIsInputCollapsed(!isInputCollapsed);
                 setIsSearchCollapsed(true);
@@ -89,18 +86,19 @@ const Menubar = () => {
         {isInputCollapsed && (
           <div className="flex float-none items-center">
             <Input
-              className="mr-2 mb-2"
+              className=" mb-2"
               placeholder="Enter Name"
               onChange={e => setNewCategory(e.target.value)}
-            />
-            <Check
-              className="-mt-1"
-              size={18}
-              onClick={() => {
-                setIsInputCollapsed(!isInputCollapsed);
-                handleSubmit();
-                setNewCategory("");
-              }}
+              suffix={
+                <Check
+                  size={20}
+                  onClick={() => {
+                    setIsInputCollapsed(!isInputCollapsed);
+                    handleSubmit();
+                    setNewCategory("");
+                  }}
+                />
+              }
             />
           </div>
         )}

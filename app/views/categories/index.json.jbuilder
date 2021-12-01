@@ -1,2 +1,2 @@
 
-json.category @category
+json.category @categories
