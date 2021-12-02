@@ -11,6 +11,13 @@ const Dashboard = () => {
   const [selectedStatus, setSelectedStatus] = useState("All");
   const [selectedCategory, setSelectedCategory] = useState();
   const [categoryCount, setCategoryCount] = useState([]);
+  const [tableColumn, setTableColumn] = useState([
+    "Title",
+    "Date",
+    "Author",
+    "Category",
+    "Status",
+  ]);
   return (
     <div>
       <Navbar />
@@ -23,7 +30,10 @@ const Dashboard = () => {
           categoryCount={categoryCount}
         />
         <div className="m-8 overflow-auto flex-col ">
-          <Subheading />
+          <Subheading
+            tableColumn={tableColumn}
+            setTableColumn={setTableColumn}
+          />
           <Typography style="h4" className="mt-4 mb-4">
             67 Articles
           </Typography>
@@ -31,6 +41,7 @@ const Dashboard = () => {
             selectedStatus={selectedStatus}
             selectedCategory={selectedCategory}
             setCategoryCount={setCategoryCount}
+            tableColumn={tableColumn}
           />
         </div>
       </div>

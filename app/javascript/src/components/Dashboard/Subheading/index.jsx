@@ -1,9 +1,16 @@
 import React from "react";
 
 import { Search, Plus } from "@bigbinary/neeto-icons";
-import { Input, Dropdown, Button } from "@bigbinary/neetoui/v2";
+import { Input, Dropdown, Button, Checkbox } from "@bigbinary/neetoui/v2";
 
-const Subheading = () => {
+const Subheading = ({ tableColumn, setTableColumn }) => {
+  const handleChange = (event, option) => {
+    !event.target.checked
+      ? setTableColumn(tableColumn.filter(column => column !== option))
+      : setTableColumn([...tableColumn, option]);
+  };
+
+  const columnNames = ["Title", "Date", "Author", "Category", "Status"];
   return (
     <div className="flex  justify-end">
       <div className="flex ">
@@ -20,9 +27,16 @@ const Subheading = () => {
           onClose={function noRefCheck() {}}
           position="bottom-end"
         >
-          <li>Option 1</li>
-          <li>Option 2</li>
-          <li>Option 3</li>
+          {columnNames.map((option, index) => (
+            <li key={index}>
+              <Checkbox
+                checked={tableColumn.includes(option)}
+                id={option}
+                label={option}
+                onChange={event => handleChange(event, option)}
+              />
+            </li>
+          ))}
         </Dropdown>
 
         <Button
