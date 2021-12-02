@@ -10,8 +10,10 @@ const ArticleTable = ({
   selectedStatus,
   selectedCategory,
   setCategoryCount,
+  tableColumn,
 }) => {
   const [articleData, setArticleData] = useState([]);
+  const [filteredColumn, setFilteredColumn] = useState([]);
 
   const ListArticles = async () => {
     try {
@@ -31,14 +33,23 @@ const ArticleTable = ({
     }
   };
 
+  const filterTableColumn = () => {
+    setFilteredColumn(
+      tableColumn.map(option => ({
+        dataIndex: option.toLowerCase(),
+        key: option.toLowerCase(),
+        title: option.toUpperCase(),
+      }))
+    );
+  };
+
   useEffect(() => {
     ListArticles();
   }, []);
 
   useEffect(() => {
-    Logger.warn("selectedStatus", selectedStatus);
-    Logger.warn("selectedCategory", selectedCategory);
-  }, [selectedStatus, selectedCategory]);
+    filterTableColumn();
+  }, [tableColumn]);
 
   const RowData = articleData
     .filter(article => {
@@ -58,31 +69,7 @@ const ArticleTable = ({
         className="even:bg-gray-200 "
         rowSelection={false}
         columnData={[
-          {
-            dataIndex: "title",
-            key: "title",
-            title: "TITLE",
-          },
-          {
-            dataIndex: "date",
-            key: "date",
-            title: "DATE",
-          },
-          {
-            dataIndex: "author",
-            key: "author",
-            title: "AUTHOR",
-          },
-          {
-            dataIndex: "category",
-            key: "category",
-            title: "CATEGORY",
-          },
-          {
-            dataIndex: "status",
-            key: "status",
-            title: "STATUS",
-          },
+          ...filteredColumn,
           {
             render: () => (
               <div className="flex ">
