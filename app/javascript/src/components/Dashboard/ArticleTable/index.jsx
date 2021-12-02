@@ -11,6 +11,7 @@ const ArticleTable = ({
   selectedCategory,
   setCategoryCount,
   tableColumn,
+  searchedArticle,
 }) => {
   const [articleData, setArticleData] = useState([]);
   const [filteredColumn, setFilteredColumn] = useState([]);
@@ -59,6 +60,15 @@ const ArticleTable = ({
     })
     .filter(article => {
       if (selectedStatus !== "All") return selectedStatus === article.status;
+
+      return true;
+    })
+    .filter(article => {
+      if (searchedArticle) {
+        return article.title
+          .toLowerCase()
+          .includes(searchedArticle.toLowerCase());
+      }
 
       return true;
     });

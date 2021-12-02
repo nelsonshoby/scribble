@@ -3,7 +3,7 @@ import React from "react";
 import { Search, Plus } from "@bigbinary/neeto-icons";
 import { Input, Dropdown, Button, Checkbox } from "@bigbinary/neetoui/v2";
 
-const Subheading = ({ tableColumn, setTableColumn }) => {
+const Subheading = ({ tableColumn, setTableColumn, setSearchedArticle }) => {
   const handleChange = (event, option) => {
     !event.target.checked
       ? setTableColumn(tableColumn.filter(column => column !== option))
@@ -14,7 +14,11 @@ const Subheading = ({ tableColumn, setTableColumn }) => {
   return (
     <div className="flex  justify-end">
       <div className="flex ">
-        <Input prefix={<Search />} placeholder="Search article title" />
+        <Input
+          prefix={<Search />}
+          placeholder="Search article title"
+          onChange={event => setSearchedArticle(event.target.value)}
+        />
 
         <Dropdown
           closeOnSelect={false}
