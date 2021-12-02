@@ -1,86 +1,74 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-import {
-  Input,
-  Textarea,
-  Select,
-  Button,
-  Dropdown,
-  Checkbox,
-} from "@bigbinary/neetoui/v2";
+import Logger from "js-logger";
 
-import Navbar from "../Dashboard/Navbar";
+import NewArticleForm from "./NewArticleForm";
+
+import articleApi from "../../apis/article";
+import categoryApi from "../../apis/category";
 
 const NewArticle = () => {
+  const [articleTitle, setArticleTitle] = useState("");
+  const [articleCategory, setArticleCategory] = useState("");
+  const [articleBody, setArticleBody] = useState("");
+  const [articlePublished, setArticlePublished] = useState(0);
+  const [categoryList, setCategoryList] = useState([]);
+  const [errors, setErrors] = useState({ input: "", select: "", textarea: "" });
+
+  const ListCategories = async () => {
+    try {
+      const response = await categoryApi.index();
+      Logger.warn("response in new article index", response.data.category);
+      setCategoryList(response.data.category);
+    } catch (error) {
+      Logger.error(error);
+    }
+  };
+
+  const handleSubmit = async () => {
+    if (articleTitle.length === 0) {
+      setErrors({ ...errors, input: "Title can'nt be blank" });
+    }
+
+    if (articleCategory.length === 0) {
+      setErrors({ ...errors, select: "Select a category" });
+    }
+
+    if (articleBody.length === 0) {
+      setErrors({ ...errors, textarea: "Text area can'nt be blank" });
+    } else {
+      try {
+        await articleApi.create({
+          article: {
+            title: articleTitle,
+            content: articleBody,
+            status: articlePublished,
+            category_id: articleCategory,
+          },
+        });
+        window.location.href = "/";
+      } catch (error) {
+        Logger.error(error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    ListCategories();
+  }, []);
+
   return (
     <div>
-      <Navbar />
-      <div className="flex-col w-2/4 mx-auto mt-20">
-        <div className="flex">
-          <Input
-            className="mr-4"
-            label="Article Title"
-            placeholder="Enter Title"
-          />
-
-          <Select
-            defaultValue={{
-              label: "Value One",
-              value: "value1",
-            }}
-            isClearable
-            isSearchable
-            label="Select"
-            name="ValueList"
-            options={[
-              {
-                label: "Value One",
-                value: "value1",
-              },
-              {
-                label: "Value Two",
-                value: "value2",
-              },
-            ]}
-            placeholder="Select an Option"
-            size="small"
-          />
-        </div>
-        <Textarea
-          className="mt-4"
-          label="Article Body"
-          placeholder="Enter text"
-          rows={40}
-        />
-        <div className="flex mt-2">
-          <Button
-            className="bg-indigo-500"
-            label="Button"
-            onClick={function noRefCheck() {}}
-          />
-          <Dropdown
-            buttonProps={{
-              onClick: function noRefCheck() {},
-            }}
-            closeOnSelect={false}
-            autoWidth="false"
-            buttonStyle="bg-indigo-500"
-            className="bg-indigo-500 text-white"
-            onClose={function noRefCheck() {}}
-            position="bottom-end"
-          >
-            <li>
-              <Checkbox id="checkbox_name" label="Published" />
-            </li>
-          </Dropdown>
-          <Button
-            className="ml-1"
-            label="Cancel"
-            onClick={function noRefCheck() {}}
-            style="text"
-          />
-        </div>
-      </div>
+      <NewArticleForm
+        setArticleTitle={setArticleTitle}
+        setArticleCategory={setArticleCategory}
+        setArticleBody={setArticleBody}
+        setArticlePublished={setArticlePublished}
+        categoryList={categoryList}
+        articlePublished={articlePublished}
+        handleSubmit={handleSubmit}
+        errors={errors}
+      />
     </div>
   );
 };
