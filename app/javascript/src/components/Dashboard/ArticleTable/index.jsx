@@ -81,10 +81,16 @@ const ArticleTable = ({
         columnData={[
           ...filteredColumn,
           {
-            render: () => (
+            render: (_, rowData) => (
               <div className="flex ">
                 <Delete size={20} />
-                <Edit size={20} className="ml-2" />
+                <Edit
+                  size={20}
+                  className="ml-2"
+                  onClick={() =>
+                    (window.location.href = `/articles/${rowData.id}/edit`)
+                  }
+                />
               </div>
             ),
           },

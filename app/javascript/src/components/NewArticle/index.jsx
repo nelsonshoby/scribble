@@ -1,29 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import Logger from "js-logger";
 
 import NewArticleForm from "./NewArticleForm";
 
 import articleApi from "../../apis/article";
-import categoryApi from "../../apis/category";
 
 const NewArticle = () => {
   const [articleTitle, setArticleTitle] = useState("");
-  const [articleCategory, setArticleCategory] = useState("");
+  const [articleCategory, setArticleCategory] = useState({
+    label: "",
+    value: "",
+  });
   const [articleBody, setArticleBody] = useState("");
   const [articlePublished, setArticlePublished] = useState(0);
-  const [categoryList, setCategoryList] = useState([]);
-  const [errors, setErrors] = useState({ input: "", select: "", textarea: "" });
+  const [selectedCategoryId, setSelectedCategoryId] = useState();
 
-  const ListCategories = async () => {
-    try {
-      const response = await categoryApi.index();
-      Logger.warn("response in new article index", response.data.category);
-      setCategoryList(response.data.category);
-    } catch (error) {
-      Logger.error(error);
-    }
-  };
+  const [errors, setErrors] = useState({ input: "", select: "", textarea: "" });
 
   const handleSubmit = async () => {
     if (articleTitle.length === 0) {
@@ -39,7 +32,7 @@ const NewArticle = () => {
             title: articleTitle,
             content: articleBody,
             status: articlePublished,
-            category_id: articleCategory,
+            category_id: selectedCategoryId,
           },
         });
         window.location.href = "/";
@@ -49,10 +42,6 @@ const NewArticle = () => {
     }
   };
 
-  useEffect(() => {
-    ListCategories();
-  }, []);
-
   return (
     <div>
       <NewArticleForm
@@ -60,9 +49,9 @@ const NewArticle = () => {
         setArticleCategory={setArticleCategory}
         setArticleBody={setArticleBody}
         setArticlePublished={setArticlePublished}
-        categoryList={categoryList}
         articlePublished={articlePublished}
         handleSubmit={handleSubmit}
+        setSelectedCategoryId={setSelectedCategoryId}
         errors={errors}
       />
     </div>
