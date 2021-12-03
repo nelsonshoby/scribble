@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { Delete, Edit } from "@bigbinary/neeto-icons";
-import { Table } from "@bigbinary/neetoui/v2";
+import { Table, PageLoader } from "@bigbinary/neetoui/v2";
 import Logger from "js-logger";
 
 import articleApi from "../../../apis/article";
@@ -12,18 +12,22 @@ const ArticleTable = ({
   setCategoryCount,
   tableColumn,
   searchedArticle,
+  setRowCount,
 }) => {
   const [articleData, setArticleData] = useState([]);
   const [filteredColumn, setFilteredColumn] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const ListArticles = async () => {
     try {
+      setLoading(true);
       const response = await articleApi.index();
       Logger.warn("response in article", response.data.articleData);
       setArticleData(response.data.articleData);
       const allStatusCount = response.data.draft + response.data.published;
       const draftStatustCount = response.data.draft;
       const publishedStatusCount = response.data.published;
+      setLoading(false);
       setCategoryCount([
         allStatusCount,
         draftStatustCount,
@@ -31,6 +35,18 @@ const ArticleTable = ({
       ]);
     } catch (error) {
       Logger.error(error);
+    }
+  };
+
+  const handleDelete = async id => {
+    Logger.warn("delete id", id);
+    if (confirm("Want to delete?")) {
+      try {
+        await articleApi.destroy(id);
+        ListArticles();
+      } catch (error) {
+        Logger.error(error);
+      }
     }
   };
 
@@ -72,6 +88,14 @@ const ArticleTable = ({
 
       return true;
     });
+  setRowCount(RowData.length);
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center mt-64">
+        <PageLoader text="Loading..." />
+      </div>
+    );
+  }
 
   return (
     <div className="h-full">
@@ -83,10 +107,14 @@ const ArticleTable = ({
           {
             render: (_, rowData) => (
               <div className="flex ">
-                <Delete size={20} />
+                <Delete
+                  className="cursor-pointer "
+                  size={20}
+                  onClick={() => handleDelete(rowData.id)}
+                />
                 <Edit
                   size={20}
-                  className="ml-2"
+                  className="ml-2 cursor-pointer "
                   onClick={() =>
                     (window.location.href = `/articles/${rowData.id}/edit`)
                   }

@@ -9,7 +9,7 @@ import { NavLink } from "react-router-dom";
 const Navbar = () => {
   return (
     <div>
-      <div className="border-b-2">
+      <nav className="border-b-2 sticky  ">
         <div className="mx-6">
           <Header
             actionBlock={
@@ -39,7 +39,7 @@ const Navbar = () => {
             }
           />
         </div>
-      </div>
+      </nav>
     </div>
   );
 };

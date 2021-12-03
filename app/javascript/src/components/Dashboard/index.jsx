@@ -12,6 +12,7 @@ const Dashboard = () => {
   const [selectedCategory, setSelectedCategory] = useState();
   const [categoryCount, setCategoryCount] = useState([]);
   const [searchedArticle, setSearchedArticle] = useState("");
+  const [rowCount, setRowCount] = useState();
   const [tableColumn, setTableColumn] = useState([
     "Title",
     "Date",
@@ -20,9 +21,9 @@ const Dashboard = () => {
     "Status",
   ]);
   return (
-    <div>
-      <Navbar />
-      <div className="flex">
+    <div className="flex flex-col h-screen">
+      <Navbar className="overflow-y-hidden" />
+      <div className="flex flex-auto overflow-y-hidden">
         <Menubar
           selectedStatus={selectedStatus}
           selectedCategory={selectedCategory}
@@ -37,7 +38,7 @@ const Dashboard = () => {
             setSearchedArticle={setSearchedArticle}
           />
           <Typography style="h4" className="mt-4 mb-4">
-            67 Articles
+            {rowCount} Articles
           </Typography>
           <ArticleTable
             selectedStatus={selectedStatus}
@@ -45,6 +46,7 @@ const Dashboard = () => {
             setCategoryCount={setCategoryCount}
             tableColumn={tableColumn}
             searchedArticle={searchedArticle}
+            setRowCount={setRowCount}
           />
         </div>
       </div>

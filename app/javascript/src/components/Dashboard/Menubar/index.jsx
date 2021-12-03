@@ -48,7 +48,7 @@ const Menubar = ({
   };
 
   return (
-    <div className="flex">
+    <div className="flex ">
       <MenuBar showMenu={true} title="Article">
         {articleStatus.map((status, index) => (
           <MenuBar.Block
