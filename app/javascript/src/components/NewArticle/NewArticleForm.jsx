@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   Input,
@@ -10,6 +10,7 @@ import {
 } from "@bigbinary/neetoui/v2";
 import Logger from "js-logger";
 
+import categoryApi from "../../apis/category";
 import Navbar from "../Dashboard/Navbar";
 
 const NewArticleForm = ({
@@ -17,18 +18,36 @@ const NewArticleForm = ({
   setArticleCategory,
   setArticleBody,
   setArticlePublished,
-  categoryList,
   articlePublished,
   handleSubmit,
   errors,
+  articleTitle,
+  articleCategory,
+  articleBody,
+  setSelectedCategoryId,
 }) => {
+  const [categoryList, setCategoryList] = useState([]);
+  const ListCategories = async () => {
+    try {
+      const response = await categoryApi.index();
+      Logger.warn("response in edit article index", response.data.category);
+      setCategoryList(response.data.category);
+    } catch (error) {
+      Logger.error(error);
+    }
+  };
+  useEffect(() => {
+    ListCategories();
+  }, []);
+
   return (
     <div>
       <Navbar />
       <div className="flex-col w-2/4 mx-auto mt-20">
         <div className="flex">
           <Input
-            error={errors.input}
+            value={articleTitle}
+            error={errors?.input}
             className="mr-4"
             label="Article Title"
             placeholder="Enter Title"
@@ -36,12 +55,14 @@ const NewArticleForm = ({
           />
 
           <Select
-            error={errors.select}
+            error={errors?.select}
+            value={articleCategory}
             label="Select"
             name="ValueList"
             onChange={event => {
               Logger.warn("selected category", event.value);
-              setArticleCategory(event.value);
+              setArticleCategory(event);
+              setSelectedCategoryId(event.value);
             }}
             options={categoryList?.map(category => ({
               label: category.name,
@@ -52,7 +73,8 @@ const NewArticleForm = ({
           />
         </div>
         <Textarea
-          error={errors.textarea}
+          value={articleBody}
+          error={errors?.textarea}
           className="mt-4"
           label="Article Body"
           placeholder="Enter text"
@@ -62,7 +84,7 @@ const NewArticleForm = ({
         <div className="flex mt-2">
           <Button
             className="bg-indigo-500"
-            label={articlePublished ? "Publish" : "SaveDraft"}
+            label={articlePublished === 1 ? "Publish" : "SaveDraft"}
             onClick={() => handleSubmit()}
           />
           <Dropdown
@@ -75,6 +97,7 @@ const NewArticleForm = ({
             <li>
               <Checkbox
                 id="checkbox_name"
+                checked={articlePublished === 1}
                 label="Publish"
                 onClick={event =>
                   event.target.checked

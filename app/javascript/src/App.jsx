@@ -9,6 +9,7 @@ import { initializeLogger } from "common/logger";
 
 import { registerIntercepts } from "./apis/axios";
 import Dashboard from "./components/Dashboard";
+import EditArticle from "./components/EditArticle";
 import NewArticle from "./components/NewArticle";
 
 const App = () => {
@@ -33,6 +34,7 @@ const App = () => {
       <Switch>
         <Route exact path="/" component={Dashboard} />
         <Route exact path="/articles/new" component={NewArticle} />
+        <Route exact path="/articles/:id/edit" component={EditArticle} />
       </Switch>
     </Router>
   );
