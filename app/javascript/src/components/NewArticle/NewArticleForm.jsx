@@ -25,6 +25,7 @@ const NewArticleForm = ({
   articleCategory,
   articleBody,
   setSelectedCategoryId,
+  setErrors,
 }) => {
   const [categoryList, setCategoryList] = useState([]);
   const ListCategories = async () => {
@@ -51,7 +52,10 @@ const NewArticleForm = ({
             className="mr-4"
             label="Article Title"
             placeholder="Enter Title"
-            onChange={event => setArticleTitle(event.target.value)}
+            onChange={event => {
+              setArticleTitle(event.target.value);
+              setErrors({ ...errors, input: "" });
+            }}
           />
 
           <Select
@@ -63,6 +67,7 @@ const NewArticleForm = ({
               Logger.warn("selected category", event.value);
               setArticleCategory(event);
               setSelectedCategoryId(event.value);
+              setErrors({ ...errors, select: "" });
             }}
             options={categoryList?.map(category => ({
               label: category.name,
@@ -78,7 +83,10 @@ const NewArticleForm = ({
           className="mt-4"
           label="Article Body"
           placeholder="Enter text"
-          onChange={e => setArticleBody(e.target.value)}
+          onChange={e => {
+            setArticleBody(e.target.value);
+            setErrors({ ...errors, textarea: "" });
+          }}
           rows={40}
         />
         <div className="flex mt-2">

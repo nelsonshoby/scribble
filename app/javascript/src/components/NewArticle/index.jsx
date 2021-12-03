@@ -21,7 +21,7 @@ const NewArticle = () => {
   const handleSubmit = async () => {
     if (articleTitle.length === 0) {
       setErrors({ ...errors, input: "Title can't be blank" });
-    } else if (articleCategory.length === 0) {
+    } else if (articleCategory.label.length === 0) {
       setErrors({ ...errors, select: "Select a category" });
     } else if (articleBody.length === 0) {
       setErrors({ ...errors, textarea: "Text area can't be blank" });
@@ -53,6 +53,7 @@ const NewArticle = () => {
         handleSubmit={handleSubmit}
         setSelectedCategoryId={setSelectedCategoryId}
         errors={errors}
+        setErrors={setErrors}
       />
     </div>
   );
