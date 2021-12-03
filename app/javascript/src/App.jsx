@@ -9,6 +9,7 @@ import { initializeLogger } from "common/logger";
 
 import { registerIntercepts } from "./apis/axios";
 import Dashboard from "./components/Dashboard";
+import NewArticle from "./components/NewArticle";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -31,6 +32,7 @@ const App = () => {
       <ToastContainer />
       <Switch>
         <Route exact path="/" component={Dashboard} />
+        <Route exact path="/articles/new" component={NewArticle} />
       </Switch>
     </Router>
   );

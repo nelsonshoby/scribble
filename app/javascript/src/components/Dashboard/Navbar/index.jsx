@@ -12,16 +12,19 @@ const Navbar = () => {
       <div className="border-b-2">
         <div className="mx-6">
           <Header
-            actionBlock={<Button label="Preview" icon={ExternalLink} />}
+            actionBlock={
+              <Button label="Preview" icon={ExternalLink} style="secondary" />
+            }
             title={
               <div className="flex text-xl ">
                 <Typography style="h3" className="text-gray-800">
                   Scribble
                 </Typography>
                 <NavLink
+                  exact
                   to="/"
                   activeClassName="text-indigo-500 "
-                  className="ml-4 text-gray-800"
+                  className="ml-4 text-gray-400"
                 >
                   Article
                 </NavLink>

@@ -48,6 +48,7 @@ const Subheading = ({ tableColumn, setTableColumn, setSearchedArticle }) => {
           size="large"
           className="ml-2 bg-indigo-500"
           icon={Plus}
+          to="/articles/new"
         />
       </div>
     </div>
