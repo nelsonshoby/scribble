@@ -107,10 +107,14 @@ const ArticleTable = ({
           {
             render: (_, rowData) => (
               <div className="flex ">
-                <Delete size={20} onClick={() => handleDelete(rowData.id)} />
+                <Delete
+                  className="cursor-pointer "
+                  size={20}
+                  onClick={() => handleDelete(rowData.id)}
+                />
                 <Edit
                   size={20}
-                  className="ml-2"
+                  className="ml-2 cursor-pointer "
                   onClick={() =>
                     (window.location.href = `/articles/${rowData.id}/edit`)
                   }

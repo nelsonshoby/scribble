@@ -41,6 +41,9 @@ const NewArticleForm = ({
     ListCategories();
   }, []);
 
+  useEffect(() => {
+    Logger.warn("articlePublished", articlePublished);
+  }, [articlePublished]);
   return (
     <div>
       <Navbar />
@@ -92,7 +95,11 @@ const NewArticleForm = ({
         <div className="flex mt-2">
           <Button
             className="bg-indigo-500"
-            label={articlePublished === 1 ? "Publish" : "SaveDraft"}
+            label={
+              articlePublished === "Published" || articlePublished === 1
+                ? "Publish"
+                : "Save Draft"
+            }
             onClick={() => handleSubmit()}
           />
           <Dropdown
@@ -105,7 +112,9 @@ const NewArticleForm = ({
             <li>
               <Checkbox
                 id="checkbox_name"
-                checked={articlePublished === 1}
+                checked={
+                  articlePublished === "Published" || articlePublished === 1
+                }
                 label="Publish"
                 onClick={event =>
                   event.target.checked

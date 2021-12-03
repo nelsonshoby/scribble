@@ -8,7 +8,6 @@ import NewArticleForm from "../NewArticle/NewArticleForm";
 
 const EditArticle = () => {
   const [articleTitle, setArticleTitle] = useState("");
-  // const [articleCategory, setArticleCategory] = useState("");
   const [articleBody, setArticleBody] = useState("");
   const [articlePublished, setArticlePublished] = useState(0);
   const { id } = useParams(id);
