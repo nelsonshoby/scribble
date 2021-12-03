@@ -8,11 +8,16 @@ import NewArticleForm from "../NewArticle/NewArticleForm";
 
 const EditArticle = () => {
   const [articleTitle, setArticleTitle] = useState("");
-  const [articleCategory, setArticleCategory] = useState("");
+  // const [articleCategory, setArticleCategory] = useState("");
   const [articleBody, setArticleBody] = useState("");
   const [articlePublished, setArticlePublished] = useState(0);
   const { id } = useParams(id);
+  const [articleCategory, setArticleCategory] = useState({
+    label: "",
+    value: "",
+  });
   const [selectedCategoryId, setSelectedCategoryId] = useState();
+  const [errors, setErrors] = useState({ input: "", select: "", textarea: "" });
   const LoadArticleDate = async () => {
     try {
       const response = await articleApi.show(id);
@@ -31,21 +36,29 @@ const EditArticle = () => {
   };
 
   const handleSubmit = async () => {
-    try {
-      await articleApi.update(
-        {
-          article: {
-            title: articleTitle,
-            content: articleBody,
-            status: articlePublished,
-            category_id: selectedCategoryId,
+    if (articleTitle.length === 0) {
+      setErrors({ ...errors, input: "Title can't be blank" });
+    } else if (articleCategory.label.length === 0) {
+      setErrors({ ...errors, select: "Select a category" });
+    } else if (articleBody.length === 0) {
+      setErrors({ ...errors, textarea: "Text area can't be blank" });
+    } else {
+      try {
+        await articleApi.update(
+          {
+            article: {
+              title: articleTitle,
+              content: articleBody,
+              status: articlePublished,
+              category_id: selectedCategoryId,
+            },
           },
-        },
-        id
-      );
-      window.location.href = "/";
-    } catch (error) {
-      Logger.error(error);
+          id
+        );
+        window.location.href = "/";
+      } catch (error) {
+        Logger.error(error);
+      }
     }
   };
 
@@ -67,6 +80,8 @@ const EditArticle = () => {
         setArticleBody={setArticleBody}
         setArticlePublished={setArticlePublished}
         setSelectedCategoryId={setSelectedCategoryId}
+        setErrors={setErrors}
+        errors={errors}
       />
     </div>
   );
