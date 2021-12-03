@@ -34,6 +34,18 @@ const ArticleTable = ({
     }
   };
 
+  const handleDelete = async id => {
+    Logger.warn("delete id", id);
+    if (confirm("Want to delete?")) {
+      try {
+        await articleApi.destroy(id);
+        ListArticles();
+      } catch (error) {
+        Logger.error(error);
+      }
+    }
+  };
+
   const filterTableColumn = () => {
     setFilteredColumn(
       tableColumn.map(option => ({
@@ -83,7 +95,7 @@ const ArticleTable = ({
           {
             render: (_, rowData) => (
               <div className="flex ">
-                <Delete size={20} />
+                <Delete size={20} onClick={() => handleDelete(rowData.id)} />
                 <Edit
                   size={20}
                   className="ml-2"
