@@ -36,8 +36,7 @@ const NewArticleForm = ({
           />
 
           <Select
-            error={errors.Select}
-            isClearable
+            error={errors.select}
             label="Select"
             name="ValueList"
             onChange={event => {
@@ -63,7 +62,7 @@ const NewArticleForm = ({
         <div className="flex mt-2">
           <Button
             className="bg-indigo-500"
-            label={articlePublished ? "Published" : "SaveDraft"}
+            label={articlePublished ? "Publish" : "SaveDraft"}
             onClick={() => handleSubmit()}
           />
           <Dropdown
@@ -76,7 +75,7 @@ const NewArticleForm = ({
             <li>
               <Checkbox
                 id="checkbox_name"
-                label="Published"
+                label="Publish"
                 onClick={event =>
                   event.target.checked
                     ? setArticlePublished(1)

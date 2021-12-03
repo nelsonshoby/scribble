@@ -26,7 +26,6 @@ const Menubar = ({
   const ListCategories = async () => {
     try {
       const response = await categoryApi.index();
-      Logger.warn("response incategoty", response.data);
       setCategoryList(response.data.category);
     } catch (error) {
       Logger.error(error);

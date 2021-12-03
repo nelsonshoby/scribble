@@ -27,15 +27,11 @@ const NewArticle = () => {
 
   const handleSubmit = async () => {
     if (articleTitle.length === 0) {
-      setErrors({ ...errors, input: "Title can'nt be blank" });
-    }
-
-    if (articleCategory.length === 0) {
+      setErrors({ ...errors, input: "Title can't be blank" });
+    } else if (articleCategory.length === 0) {
       setErrors({ ...errors, select: "Select a category" });
-    }
-
-    if (articleBody.length === 0) {
-      setErrors({ ...errors, textarea: "Text area can'nt be blank" });
+    } else if (articleBody.length === 0) {
+      setErrors({ ...errors, textarea: "Text area can't be blank" });
     } else {
       try {
         await articleApi.create({
