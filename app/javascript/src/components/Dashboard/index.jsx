@@ -20,9 +20,9 @@ const Dashboard = () => {
     "Status",
   ]);
   return (
-    <div>
-      <Navbar />
-      <div className="flex">
+    <div className="flex flex-col h-screen">
+      <Navbar className="overflow-y-hidden" />
+      <div className="flex flex-auto overflow-y-hidden">
         <Menubar
           selectedStatus={selectedStatus}
           selectedCategory={selectedCategory}
