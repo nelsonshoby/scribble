@@ -11,6 +11,7 @@ import { registerIntercepts } from "./apis/axios";
 import Dashboard from "./components/Dashboard";
 import EditArticle from "./components/EditArticle";
 import NewArticle from "./components/NewArticle";
+import Settings from "./components/Settings";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -35,6 +36,7 @@ const App = () => {
         <Route exact path="/" component={Dashboard} />
         <Route exact path="/articles/new" component={NewArticle} />
         <Route exact path="/articles/:id/edit" component={EditArticle} />
+        <Route exact path="/settings" component={Settings} />
       </Switch>
     </Router>
   );

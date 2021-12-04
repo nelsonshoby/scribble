@@ -100,12 +100,12 @@ const ArticleTable = ({
   return (
     <div className="h-full">
       <Table
-        className="even:bg-gray-200 "
+        className="even:bg-gray-200 cursor-auto "
         rowSelection={false}
         columnData={[
           ...filteredColumn,
           {
-            render: (_, rowData) => (
+            render: rowData => (
               <div className="flex ">
                 <Delete
                   className="cursor-pointer "
