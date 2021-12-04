@@ -4,7 +4,7 @@ import { Settings, Repeat, Seo } from "@bigbinary/neeto-icons";
 
 import SideBarSubComponent from "./SideBarSubComponent";
 
-const SideBar = () => {
+const SideBar = ({ setSelectedSettings }) => {
   const Tags = [Settings, Repeat, Seo];
   const Heading = ["General", "Redirections", "Manage categories"];
   const SubHeading = [
@@ -15,12 +15,14 @@ const SideBar = () => {
   return (
     <div className="max-w-sm h-screen  fixed border-r-2">
       {Tags.map((Tag, index) => (
-        <SideBarSubComponent
-          key={index}
-          Tag={Tag}
-          Heading={Heading[index]}
-          SubHeading={SubHeading[index]}
-        />
+        <div key={index} onClick={() => setSelectedSettings(Heading[index])}>
+          <SideBarSubComponent
+            key={index}
+            Tag={Tag}
+            Heading={Heading[index]}
+            SubHeading={SubHeading[index]}
+          />
+        </div>
       ))}
     </div>
   );

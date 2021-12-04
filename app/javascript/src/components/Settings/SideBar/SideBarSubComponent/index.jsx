@@ -4,8 +4,8 @@ import { Typography } from "@bigbinary/neetoui/v2";
 
 const SideBarSubComponent = ({ Tag, Heading, SubHeading }) => {
   return (
-    <div>
-      <div className="p-4  mx-4 my-8  hover:border-gray-600 rounded-lg ">
+    <div className="w-full">
+      <div className="p-4  mx-4 my-8 hover: custom-bg">
         <div className="flex">
           <div className="flex items-center">
             <Tag className="mr-2" />
