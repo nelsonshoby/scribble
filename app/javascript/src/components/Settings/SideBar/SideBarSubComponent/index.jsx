@@ -1,21 +1,23 @@
 import React from "react";
 
 import { Typography } from "@bigbinary/neetoui/v2";
+import { NavLink } from "react-router-dom";
 
 const SideBarSubComponent = ({ Tag, Heading, SubHeading }) => {
+  const header = Heading.replace(/ /g, "");
   return (
     <div className="w-full">
-      <div className="p-4  mx-4 my-8 hover: custom-bg">
-        <div className="flex">
-          <div className="flex items-center">
-            <Tag className="mr-2" />
-          </div>
-          <div className="flex-col">
-            <Typography style="h5">{Heading}</Typography>
-            <Typography style="body3">{SubHeading}</Typography>
-          </div>
+      <NavLink
+        to={`/settings/${header}`}
+        activeClassName="bg-gray-400"
+        className="flex items-center py-3 px-3 m-3 rounded-sm"
+      >
+        <Tag className="mr-2" />
+        <div className="flex-col">
+          <Typography style="h5">{Heading}</Typography>
+          <Typography style="body3">{SubHeading}</Typography>
         </div>
-      </div>
+      </NavLink>
     </div>
   );
 };

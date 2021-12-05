@@ -1,18 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
 
-import Logger from "js-logger";
+import { Redirect, Route, Switch } from "react-router-dom";
 
+import GeneralSettings from "./GeneralSettings";
 import SideBar from "./SideBar";
 
 import Navbar from "../Dashboard/Navbar";
 
 const Settings = () => {
-  const [selectedSettings, setSelectedSettings] = useState();
-  Logger.warn(selectedSettings);
   return (
     <div>
       <Navbar />
-      <SideBar setSelectedSettings={setSelectedSettings} />
+      <div className="flex">
+        <SideBar />
+        <Switch>
+          <Redirect exact path="/settings" to="/settings/General" />
+          <Route exact path="/settings/General" component={GeneralSettings} />
+        </Switch>
+      </div>
     </div>
   );
 };

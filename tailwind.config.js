@@ -7,13 +7,19 @@ module.exports = {
   purge: [],
   theme: {
     extend: {
-      color: {"custom-bg-gray-50": "#EEF2FF"}
+      color: {"custom-bg-gray-50": "#EEF2FF"},
+      width: {
+        '400': '400px',
+       }
+
     },
   },
 
   variants: {
-    backgroundColor: ["even", "hover"],
-    textColor: ["first"]
+    backgroundColor: ["even"],
+    // backgroundColor: ["even", "hover"],
+    textColor: ["first"],
+
   },
   plugins: [],
 }
