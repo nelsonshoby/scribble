@@ -33,7 +33,6 @@ const Subheading = ({ tableColumn, setTableColumn, setSearchedArticle }) => {
           }}
           buttonStyle="secondary"
           label="Columns"
-          onClose={function noRefCheck() {}}
           position="bottom-end"
         >
           {columnNames.map((option, index) => (
@@ -43,6 +42,7 @@ const Subheading = ({ tableColumn, setTableColumn, setSearchedArticle }) => {
                 id={option}
                 label={option}
                 onChange={event => handleChange(event, option)}
+                style={{ color: "#6366F1", borderRadius: "5px" }}
               />
             </li>
           ))}
