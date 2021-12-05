@@ -56,7 +56,7 @@ const ArticleTable = ({
         dataIndex: option.toLowerCase(),
         key: option.toLowerCase(),
         title: option.toUpperCase(),
-        // className: index==0 ? "text-indigo-600" : null
+        className: option === "Title" ? "text-indigo-600" : null,
       }))
     );
   };
