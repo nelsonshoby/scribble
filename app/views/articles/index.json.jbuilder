@@ -3,7 +3,7 @@
 json.articleData @articles do |article|
   json.id article.id
   json.title article.title
-  json.date article.created_at.to_date.to_formatted_s(:long_ordinal) if article.status == "Published" 
+  json.date article.created_at.to_date.to_formatted_s(:long_ordinal) if article.Published?
   json.author "Nelson"
   json.category article.category.name
   json.status article.status
