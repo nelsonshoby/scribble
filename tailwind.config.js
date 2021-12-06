@@ -6,10 +6,20 @@ module.exports = {
   },
   purge: [],
   theme: {
-    extend: {},
+    extend: {
+      color: {"custom-bg-gray-50": "#EEF2FF"},
+      width: {
+        '400': '400px',
+       }
+
+    },
   },
+
   variants: {
-    backgroundColor: ["even"]
+    backgroundColor: ["even"],
+    // backgroundColor: ["even", "hover"],
+    textColor: ["first"],
+
   },
   plugins: [],
 }

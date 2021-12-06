@@ -5,9 +5,14 @@ import { Input, Dropdown, Button, Checkbox } from "@bigbinary/neetoui/v2";
 
 const Subheading = ({ tableColumn, setTableColumn, setSearchedArticle }) => {
   const handleChange = (event, option) => {
-    !event.target.checked
-      ? setTableColumn(tableColumn.filter(column => column !== option))
-      : setTableColumn([...tableColumn, option]);
+    if (!event.target.checked) {
+      setTableColumn(tableColumn.filter(column => column !== option));
+    } else {
+      const columns = columnNames.filter(
+        data => tableColumn.includes(data) || option === data
+      );
+      setTableColumn([...columns]);
+    }
   };
 
   const columnNames = ["Title", "Date", "Author", "Category", "Status"];
@@ -28,7 +33,6 @@ const Subheading = ({ tableColumn, setTableColumn, setSearchedArticle }) => {
           }}
           buttonStyle="secondary"
           label="Columns"
-          onClose={function noRefCheck() {}}
           position="bottom-end"
         >
           {columnNames.map((option, index) => (
@@ -38,6 +42,7 @@ const Subheading = ({ tableColumn, setTableColumn, setSearchedArticle }) => {
                 id={option}
                 label={option}
                 onChange={event => handleChange(event, option)}
+                style={{ color: "#6366F1", borderRadius: "5px" }}
               />
             </li>
           ))}

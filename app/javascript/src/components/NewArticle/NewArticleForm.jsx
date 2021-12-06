@@ -115,6 +115,7 @@ const NewArticleForm = ({
                 checked={
                   articlePublished === "Published" || articlePublished === 1
                 }
+                style={{ color: "#6366F1", borderRadius: "5px" }}
                 label="Publish"
                 onClick={event =>
                   event.target.checked
