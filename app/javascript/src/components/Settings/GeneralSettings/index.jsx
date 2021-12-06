@@ -3,14 +3,19 @@ import React, { useEffect, useState } from "react";
 import { Check, Close } from "@bigbinary/neeto-icons";
 import { Typography, Input, Checkbox, Button } from "@bigbinary/neetoui/v2";
 import Logger from "js-logger";
+import { useHistory } from "react-router";
+import { toast } from "react-toastify";
 
 import sitedetailApi from "../../../apis/sitedetail";
+import { TOASTR_OPTIONS } from "../../../constants";
 
 const GeneralSettings = () => {
   const [checked, setChecked] = useState(false);
   const [password, setPassword] = useState("");
   const [siteName, setSiteName] = useState("");
-  // const [minLength,setMin] = useState(false)
+  const [passwordLength, setPasswordLength] = useState(false);
+  const [letterAndNumber, setLetterAndNumber] = useState(false);
+  const history = useHistory();
 
   const ShowSiteDetails = async () => {
     try {
@@ -23,20 +28,31 @@ const GeneralSettings = () => {
   };
 
   const handleSubmit = async () => {
-    try {
-      await sitedetailApi.update({ name: siteName, password: password });
-    } catch (error) {
-      Logger.error(error);
+    if (checked && (!passwordLength || !letterAndNumber)) {
+      toast.error(
+        "The password does not meet the password policy requirements. ",
+        TOASTR_OPTIONS
+      );
+    } else {
+      try {
+        await sitedetailApi.update({ name: siteName, password: password });
+      } catch (error) {
+        Logger.error(error);
+      }
     }
+    history.push("/settings");
   };
 
   useEffect(() => {
     ShowSiteDetails();
   }, []);
 
-  // useEffect(()=>{
-  //   Logger.warn("minLength",minLength)
-  // },[minLength])
+  useEffect(() => {
+    password.length > 6 ? setPasswordLength(true) : setPasswordLength(false);
+    /\d/.test(password) && /[a-zA-Z]/.test(password)
+      ? setLetterAndNumber(true)
+      : setLetterAndNumber(false);
+  }, [password]);
 
   return (
     <div className="mx-auto mt-4 w-400 ">
@@ -69,6 +85,7 @@ const GeneralSettings = () => {
           id="checkbox_name"
           label="Password Protect Knowledge Base"
         />
+        <div></div>
         <div className="mt-4">
           {checked && (
             <Input
@@ -79,10 +96,10 @@ const GeneralSettings = () => {
             />
           )}
         </div>
-        {checked ? (
+        {checked && (
           <div className="mt-4">
-            {password.length > 6 ? (
-              <div className="flex">
+            {passwordLength ? (
+              <div className="flex ">
                 <Check size={18} color="#00BA88" />{" "}
                 <Typography style="body3">
                   Have at least 6 characters
@@ -97,13 +114,10 @@ const GeneralSettings = () => {
               </div>
             )}
           </div>
-        ) : (
-          ""
         )}
-
-        {checked ? (
+        {checked && (
           <div className="mt-4">
-            {/\d/.test(password) && /[a-zA-Z]/.test(password) ? (
+            {letterAndNumber ? (
               <div className="flex">
                 <Check size={18} color="#00BA88" />{" "}
                 <Typography style="body3">
@@ -119,15 +133,13 @@ const GeneralSettings = () => {
               </div>
             )}
           </div>
-        ) : (
-          ""
         )}
 
         <div className="flex-col mt-4">
           <Button
             className="mr-2 bg-indigo-500"
             label="Save Changes"
-            onClick={() => handleSubmit()}
+            onClick={handleSubmit}
           />
 
           <Button label="Cancel" style="text" to="/settings" />
