@@ -10,7 +10,10 @@ module.exports = {
       color: {"custom-bg-gray-50": "#EEF2FF"},
       width: {
         '400': '400px',
-       }
+        '720': '720px',
+        '672': '672px',
+       },
+     
 
     },
   },

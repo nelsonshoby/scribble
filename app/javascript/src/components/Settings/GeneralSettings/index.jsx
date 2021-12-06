@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { Check, Close } from "@bigbinary/neeto-icons";
 import { Typography, Input, Checkbox, Button } from "@bigbinary/neetoui/v2";
 import Logger from "js-logger";
-import { useHistory } from "react-router";
 import { toast } from "react-toastify";
 
 import sitedetailApi from "../../../apis/sitedetail";
@@ -15,7 +14,6 @@ const GeneralSettings = () => {
   const [siteName, setSiteName] = useState("");
   const [passwordLength, setPasswordLength] = useState(false);
   const [letterAndNumber, setLetterAndNumber] = useState(false);
-  const history = useHistory();
 
   const ShowSiteDetails = async () => {
     try {
@@ -40,7 +38,6 @@ const GeneralSettings = () => {
         Logger.error(error);
       }
     }
-    history.push("/settings");
   };
 
   useEffect(() => {
@@ -62,7 +59,7 @@ const GeneralSettings = () => {
           Configure general attributes of scribble.
         </Typography>
         <Input
-          className="mt-4"
+          className="mt-8"
           value={siteName}
           size="large"
           label="Site Name"
@@ -70,9 +67,8 @@ const GeneralSettings = () => {
           placeholder="Enter Name"
           helpText={
             <span>
-              Customize the site name which is used to show the site name in{" "}
+              Customize the site name which is used to show the site name in
               <b>
-                {" "}
                 <br /> Open Graph Tags.
               </b>
             </span>
@@ -83,7 +79,10 @@ const GeneralSettings = () => {
           className="mt-4"
           onChange={event => setChecked(event.target.checked)}
           id="checkbox_name"
-          label="Password Protect Knowledge Base"
+          style={{ color: "#6366F1", borderRadius: "5px" }}
+          label={
+            <Typography style="h5">Password Protect Knowledge Base</Typography>
+          }
         />
         <div></div>
         <div className="mt-4">

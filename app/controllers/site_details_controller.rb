@@ -2,7 +2,6 @@
 
 class SiteDetailsController < ApplicationController
   def show
-    p "dfghj"
     @sitedetail = SiteDetail.first
   end
 
