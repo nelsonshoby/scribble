@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resources :categories, only: %i[create index]
     resources :articles, only: %i[create index show update destroy]
     resource :site_details, only: %i[show update]
+    resources :redirections, only: %i[index update destroy create]
   end
 
   root "home#index"
