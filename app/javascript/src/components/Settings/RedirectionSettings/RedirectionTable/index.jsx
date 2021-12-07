@@ -18,6 +18,7 @@ const RedirectionTable = ({
   setEditableId,
   newFrom,
   newTo,
+  setNewRedirection,
 }) => {
   return (
     <table className=" w-672 mt-4">
@@ -58,6 +59,7 @@ const RedirectionTable = ({
                       setNewFrom(ele.From);
                       setNewTo(ele.To);
                       setEditableId(ele.id);
+                      setNewRedirection(false);
                     }}
                   />
                 </div>

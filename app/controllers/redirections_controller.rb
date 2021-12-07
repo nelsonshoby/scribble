@@ -2,6 +2,7 @@
 
 class RedirectionsController < ApplicationController
   before_action :load_redirection, only: [:update, :destroy]
+
   def index
     @redirections = Redirection.all
   end

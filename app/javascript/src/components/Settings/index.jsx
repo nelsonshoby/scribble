@@ -10,9 +10,9 @@ import Navbar from "../Dashboard/Navbar";
 
 const Settings = () => {
   return (
-    <div>
-      <Navbar />
-      <div className="flex">
+    <div className="flex flex-col h-screen">
+      <Navbar className="overflow-y-hidden" />
+      <div className="flex flex-auto overflow-y-hidden">
         <SideBar />
         <Switch>
           <Redirect exact path="/settings" to="/settings/General" />

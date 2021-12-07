@@ -97,9 +97,10 @@ const RedirectionSettings = () => {
               setEditableId={setEditableId}
               newFrom={newFrom}
               newTo={newTo}
+              setNewRedirection={setNewRedirection}
             />
           </div>
-          <div className="ml-8 pb-8 mt-4 flex justify-start">
+          <div className="ml-8 pb-4 mt-4 flex justify-start">
             <Button
               label="Add New Redirection"
               icon={Plus}
