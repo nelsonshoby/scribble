@@ -33,7 +33,15 @@ const RedirectionTable = ({
         {redirectionData.map((ele, index) =>
           editableId !== ele.id ? (
             <tr key={index} className="border-b-8  border-indigo-100">
-              <td className="px-2 py-4 text-left bg-white mt-4 ">
+              <td
+                className="px-2 py-4 text-left bg-white mt-4 "
+                style={{
+                  maxWidth: "70px",
+                  overflowX: "scroll",
+                  width: "40%",
+                  marginRight: "10%",
+                }}
+              >
                 <div className="flex">
                   <Typography style="body2" className="text-gray-400">
                     {window.location.origin}
@@ -41,7 +49,15 @@ const RedirectionTable = ({
                   <Typography style="body2">{"/" + ele.From}</Typography>
                 </div>
               </td>
-              <td className="px-2 py-4  text-left bg-white mt-4 ">
+              <td
+                className="px-2 py-4  text-left bg-white mt-4 "
+                style={{
+                  maxWidth: "70px",
+                  overflowX: "scroll",
+                  width: "40%",
+                  marginRight: "10%",
+                }}
+              >
                 {window.location.origin + "/" + ele.To}
               </td>
               <td className="px-2 py-4  text-left  bg-white mt-4  ">
