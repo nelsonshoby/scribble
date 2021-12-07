@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { Delete, Edit } from "@bigbinary/neeto-icons";
 import { Table, PageLoader } from "@bigbinary/neetoui/v2";
+import { Button } from "@bigbinary/neetoui/v2";
 import Logger from "js-logger";
 
 import articleApi from "../../../apis/article";
@@ -108,14 +109,14 @@ const ArticleTable = ({
           {
             render: rowData => (
               <div className="flex ">
-                <Delete
-                  className="cursor-pointer "
-                  size={20}
+                <Button
+                  icon={Delete}
+                  style="text"
                   onClick={() => handleDelete(rowData.id)}
                 />
-                <Edit
-                  size={20}
-                  className="ml-2 cursor-pointer "
+                <Button
+                  icon={Edit}
+                  style="text"
                   onClick={() =>
                     (window.location.href = `/articles/${rowData.id}/edit`)
                   }
