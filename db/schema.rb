@@ -31,8 +31,8 @@ ActiveRecord::Schema.define(version: 2021_12_06_150034) do
   end
 
   create_table "redirections", force: :cascade do |t|
-    t.string "From", null: false
-    t.string "To", null: false
+    t.string "From"
+    t.string "To"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

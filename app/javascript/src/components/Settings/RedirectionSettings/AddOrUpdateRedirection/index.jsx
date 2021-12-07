@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Check } from "@bigbinary/neeto-icons";
-import { Input } from "@bigbinary/neetoui/v2";
+import { Input, Button } from "@bigbinary/neetoui/v2";
 
 const AddOrUpdateRedirection = ({
   setNewFrom,
@@ -29,9 +29,15 @@ const AddOrUpdateRedirection = ({
       </td>
       <td className="px-2 py-4 text-left bg-white mt-4 ">
         {id ? (
-          <Check className="ml-10" onClick={() => handleSubmit(id)} />
+          <div className="flex">
+            <Button
+              icon={Check}
+              style="text"
+              onClick={() => handleSubmit(id)}
+            />
+          </div>
         ) : (
-          <Check className="ml-10" onClick={() => handleSubmit()} />
+          <Button icon={Check} style="text" onClick={() => handleSubmit()} />
         )}
       </td>
     </tr>
