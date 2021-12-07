@@ -33,7 +33,12 @@ const GeneralSettings = () => {
       );
     } else {
       try {
-        await sitedetailApi.update({ name: siteName, password: password });
+        await sitedetailApi.update({
+          site_detail: {
+            name: siteName,
+            password: password.length === 0 ? null : password,
+          },
+        });
       } catch (error) {
         Logger.error(error);
       }

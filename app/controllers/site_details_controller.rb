@@ -7,6 +7,7 @@ class SiteDetailsController < ApplicationController
 
   def update
     site = SiteDetail.first
+    p "site_detail_params", site_detail_params
     if site.update(site_detail_params)
       render status: :ok, json: {
         notice: t("successfully_updated", entity: "SiteDetail")
