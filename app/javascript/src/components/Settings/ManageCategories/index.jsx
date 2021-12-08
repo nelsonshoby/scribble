@@ -71,14 +71,14 @@ const ManageCategories = () => {
   }, []);
 
   return (
-    <div className="mx-auto">
+    <div className="mx-auto overflow-scroll ">
       <div className="w-720 mt-4">
         <Typography style="h2">Manage Categories</Typography>
         <Typography style="body1" className="text-gray-600 mt-2">
           Create and configure the categories inside your scribble.
         </Typography>
 
-        <div className="w-641">
+        <div className="w-260">
           {newCategory ? (
             <Button
               label="Add New Category"
@@ -86,7 +86,10 @@ const ManageCategories = () => {
               icon={Plus}
               style="link"
               iconPosition="left"
-              onClick={() => setNewCategory(false)}
+              onClick={() => {
+                setNewCategory(false);
+                setEditableId(null), setName(null);
+              }}
             />
           ) : (
             <EditAndCreateCategory
@@ -98,11 +101,11 @@ const ManageCategories = () => {
             />
           )}
         </div>
-        <div className="w-641 border-t-2">
+        <div className="w-641">
           <ul>
             {categoryList?.map(category =>
               editableId !== category.id ? (
-                <li className="flex justify-between  border-b-2 py-4 items-center">
+                <li className="flex justify-between  border-t py-4 items-center">
                   <div className="flex  items-center w-2/4">
                     <Button icon={Reorder} style="text" className="mr-2" />
                     <Typography style="h5">{category.name}</Typography>
@@ -115,6 +118,7 @@ const ManageCategories = () => {
                       onClick={() => {
                         setEditableId(category.id);
                         setName(category.name);
+                        setNewCategory(true);
                       }}
                     />
                     <Button
@@ -125,13 +129,15 @@ const ManageCategories = () => {
                   </div>
                 </li>
               ) : (
-                <EditAndCreateCategory
-                  setEditableId={setEditableId}
-                  handleSubmit={handleUpdate}
-                  setName={setName}
-                  name={name}
-                  editableId={editableId}
-                />
+                <div className="border-t">
+                  <EditAndCreateCategory
+                    setEditableId={setEditableId}
+                    handleSubmit={handleUpdate}
+                    setName={setName}
+                    name={name}
+                    editableId={editableId}
+                  />
+                </div>
               )
             )}
           </ul>

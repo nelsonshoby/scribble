@@ -73,7 +73,7 @@ const RedirectionSettings = () => {
     ListRedirections();
   }, []);
   return (
-    <div className="mx-auto mt-4 ">
+    <div className="mx-auto mt-4 overflow-scroll ">
       <div className="w-720">
         <Typography style="h2">Redirections</Typography>
         <Typography style="body1" className="text-gray-600 mt-2">
