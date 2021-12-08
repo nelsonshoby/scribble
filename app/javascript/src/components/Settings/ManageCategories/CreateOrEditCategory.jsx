@@ -3,7 +3,7 @@ import React from "react";
 import { Check, Close } from "@bigbinary/neeto-icons";
 import { Button, Input } from "@bigbinary/neetoui/v2";
 
-const EditAndCreateCategory = ({
+const CreateOrEditCategory = ({
   name,
   setName,
   handleSubmit,
@@ -21,7 +21,6 @@ const EditAndCreateCategory = ({
         suffix={
           !editableId ? (
             <Button
-              className="mr-2 "
               icon={Check}
               style="text"
               onClick={() => {
@@ -54,4 +53,4 @@ const EditAndCreateCategory = ({
   );
 };
 
-export default EditAndCreateCategory;
+export default CreateOrEditCategory;

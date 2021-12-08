@@ -5,7 +5,7 @@ import { Typography, Button } from "@bigbinary/neetoui/v2";
 import Logger from "js-logger";
 import { toast } from "react-toastify";
 
-import EditAndCreateCategory from "./EditAndCreateCategory";
+import CreateOrEditCategory from "./CreateOrEditCategory";
 
 import categoryApi from "../../../apis/category";
 import { TOASTR_OPTIONS } from "../../../constants";
@@ -82,7 +82,7 @@ const ManageCategories = () => {
           {newCategory ? (
             <Button
               label="Add New Category"
-              className="my-4 "
+              className="my-8 "
               icon={Plus}
               style="link"
               iconPosition="left"
@@ -92,7 +92,7 @@ const ManageCategories = () => {
               }}
             />
           ) : (
-            <EditAndCreateCategory
+            <CreateOrEditCategory
               handleSubmit={handleSubmit}
               setEditableId={setEditableId}
               setName={setName}
@@ -108,7 +108,7 @@ const ManageCategories = () => {
                 <li className="flex justify-between  border-t py-4 items-center">
                   <div className="flex  items-center w-2/4">
                     <Button icon={Reorder} style="text" className="mr-2" />
-                    <Typography style="h5">{category.name}</Typography>
+                    <Typography style="h4">{category.name}</Typography>
                   </div>
                   <div className="flex">
                     <Button
@@ -130,7 +130,7 @@ const ManageCategories = () => {
                 </li>
               ) : (
                 <div className="border-t">
-                  <EditAndCreateCategory
+                  <CreateOrEditCategory
                     setEditableId={setEditableId}
                     handleSubmit={handleUpdate}
                     setName={setName}
