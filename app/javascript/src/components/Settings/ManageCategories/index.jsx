@@ -1,31 +1,66 @@
 import React, { useEffect, useState } from "react";
 
-import {
-  Plus,
-  Reorder,
-  Edit,
-  Delete,
-  Check,
-  Close,
-} from "@bigbinary/neeto-icons";
-import { Typography, Button, Input } from "@bigbinary/neetoui/v2";
+import { Plus, Reorder, Edit, Delete } from "@bigbinary/neeto-icons";
+import { Typography, Button } from "@bigbinary/neetoui/v2";
 import Logger from "js-logger";
+import { toast } from "react-toastify";
+
+import EditAndCreateCategory from "./EditAndCreateCategory";
 
 import categoryApi from "../../../apis/category";
+import { TOASTR_OPTIONS } from "../../../constants";
 
 const ManageCategories = () => {
   const [categoryList, setCategoryList] = useState();
   const [editableId, setEditableId] = useState();
   const [name, setName] = useState("");
+  const [newCategory, setNewCategory] = useState(true);
 
-  const handleDelete = () => {};
-  const handleUpdate = () => {};
+  const handleUpdate = async id => {
+    try {
+      await categoryApi.update(
+        {
+          category: {
+            name,
+          },
+        },
+        id
+      );
+      ListCategories();
+    } catch (error) {
+      Logger.error(error);
+    }
+  };
+
+  const handleSubmit = async () => {
+    try {
+      if (newCategory.length !== 0) {
+        await categoryApi.create({ name });
+        ListCategories();
+      } else toast.error("Category name can't be blank.", TOASTR_OPTIONS);
+    } catch (error) {
+      Logger.error(error);
+    }
+  };
+
+  const handleDelete = async id => {
+    Logger.warn("delete id", id);
+    if (confirm("Want to delete?")) {
+      try {
+        await categoryApi.destroy(id);
+        ListCategories();
+      } catch (error) {
+        Logger.error(error);
+      }
+    }
+  };
 
   const ListCategories = async () => {
     try {
       const response = await categoryApi.index();
       Logger.warn("response in cat", response.data.category);
       setCategoryList(response.data.category);
+      setEditableId(null);
     } catch (error) {
       Logger.error(error);
     }
@@ -34,6 +69,7 @@ const ManageCategories = () => {
   useEffect(() => {
     ListCategories();
   }, []);
+
   return (
     <div className="mx-auto">
       <div className="w-720 mt-4">
@@ -42,13 +78,26 @@ const ManageCategories = () => {
           Create and configure the categories inside your scribble.
         </Typography>
 
-        <Button
-          label="Add New Category"
-          className="my-4 "
-          icon={Plus}
-          style="link"
-          iconPosition="left"
-        />
+        <div className="w-641">
+          {newCategory ? (
+            <Button
+              label="Add New Category"
+              className="my-4 "
+              icon={Plus}
+              style="link"
+              iconPosition="left"
+              onClick={() => setNewCategory(false)}
+            />
+          ) : (
+            <EditAndCreateCategory
+              handleSubmit={handleSubmit}
+              setEditableId={setEditableId}
+              setName={setName}
+              name={name}
+              setNewCategory={setNewCategory}
+            />
+          )}
+        </div>
         <div className="w-641 border-t-2">
           <ul>
             {categoryList?.map(category =>
@@ -76,27 +125,13 @@ const ManageCategories = () => {
                   </div>
                 </li>
               ) : (
-                <li className="flex justify-between  border-b-2 py-4 items-center">
-                  <Input
-                    value={name}
-                    className="mr-8"
-                    placeholder="Enter Name"
-                    onChange={event => setName(event.target.value)}
-                  />
-                  <div className="flex">
-                    <Button
-                      className="mr-2 "
-                      icon={Check}
-                      style="text"
-                      onClick={() => handleUpdate(editableId)}
-                    />
-                    <Button
-                      icon={Close}
-                      style="text"
-                      onClick={() => setEditableId(null)}
-                    />
-                  </div>
-                </li>
+                <EditAndCreateCategory
+                  setEditableId={setEditableId}
+                  handleSubmit={handleUpdate}
+                  setName={setName}
+                  name={name}
+                  editableId={editableId}
+                />
               )
             )}
           </ul>

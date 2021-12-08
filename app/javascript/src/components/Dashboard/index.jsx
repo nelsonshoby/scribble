@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Typography } from "@bigbinary/neetoui/v2";
+import Logger from "js-logger";
+
+import articleApi from "apis/article";
 
 import ArticleTable from "./ArticleTable";
 import Menubar from "./Menubar";
@@ -20,6 +23,34 @@ const Dashboard = () => {
     "Category",
     "Status",
   ]);
+  const [articleData, setArticleData] = useState([]);
+
+  const [loading, setLoading] = useState(true);
+
+  const ListArticles = async () => {
+    try {
+      setLoading(true);
+      const response = await articleApi.index();
+      Logger.warn("response in article", response.data.articleData);
+      setArticleData(response.data.articleData);
+      const allStatusCount = response.data.draft + response.data.published;
+      const draftStatustCount = response.data.draft;
+      const publishedStatusCount = response.data.published;
+      setLoading(false);
+      setCategoryCount([
+        allStatusCount,
+        draftStatustCount,
+        publishedStatusCount,
+      ]);
+    } catch (error) {
+      Logger.error(error);
+    }
+  };
+
+  useEffect(() => {
+    ListArticles();
+  }, []);
+
   return (
     <div className="flex flex-col h-screen">
       <Navbar className="overflow-y-hidden" />
@@ -30,6 +61,7 @@ const Dashboard = () => {
           setSelectedStatus={setSelectedStatus}
           setSelectedCategory={setSelectedCategory}
           categoryCount={categoryCount}
+          ListArticles={ListArticles}
         />
         <div className="m-8 overflow-auto flex-col ">
           <Subheading
@@ -43,10 +75,12 @@ const Dashboard = () => {
           <ArticleTable
             selectedStatus={selectedStatus}
             selectedCategory={selectedCategory}
-            setCategoryCount={setCategoryCount}
             tableColumn={tableColumn}
             searchedArticle={searchedArticle}
             setRowCount={setRowCount}
+            ListArticles={ListArticles}
+            loading={loading}
+            articleData={articleData}
           />
         </div>
       </div>

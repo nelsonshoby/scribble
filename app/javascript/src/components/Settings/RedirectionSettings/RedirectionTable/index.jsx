@@ -89,6 +89,7 @@ const RedirectionTable = ({
               newTo={newTo}
               id={editableId}
               handleSubmit={handleUpdate}
+              setNewRedirection={setNewRedirection}
             />
           )
         )}
@@ -97,6 +98,7 @@ const RedirectionTable = ({
             setNewFrom={setNewFrom}
             setNewTo={setNewTo}
             handleSubmit={handleSubmit}
+            setNewRedirection={setNewRedirection}
           />
         )}
       </tbody>

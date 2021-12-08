@@ -2,5 +2,5 @@
 
 json.article do
   json.extract! @article, :title, :content, :status
-  json.category_name @article.category.name
+  json.category @article.category ? @article.category.name : "-"
 end

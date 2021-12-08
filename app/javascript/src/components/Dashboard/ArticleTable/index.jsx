@@ -5,39 +5,19 @@ import { Table, PageLoader } from "@bigbinary/neetoui/v2";
 import { Button } from "@bigbinary/neetoui/v2";
 import Logger from "js-logger";
 
-import articleApi from "../../../apis/article";
+import articleApi from "apis/article";
 
 const ArticleTable = ({
   selectedStatus,
   selectedCategory,
-  setCategoryCount,
   tableColumn,
   searchedArticle,
   setRowCount,
+  ListArticles,
+  loading,
+  articleData,
 }) => {
-  const [articleData, setArticleData] = useState([]);
   const [filteredColumn, setFilteredColumn] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  const ListArticles = async () => {
-    try {
-      setLoading(true);
-      const response = await articleApi.index();
-      Logger.warn("response in article", response.data.articleData);
-      setArticleData(response.data.articleData);
-      const allStatusCount = response.data.draft + response.data.published;
-      const draftStatustCount = response.data.draft;
-      const publishedStatusCount = response.data.published;
-      setLoading(false);
-      setCategoryCount([
-        allStatusCount,
-        draftStatustCount,
-        publishedStatusCount,
-      ]);
-    } catch (error) {
-      Logger.error(error);
-    }
-  };
 
   const handleDelete = async id => {
     Logger.warn("delete id", id);
@@ -57,14 +37,15 @@ const ArticleTable = ({
         dataIndex: option.toLowerCase(),
         key: option.toLowerCase(),
         title: option.toUpperCase(),
-        className: option === "Title" ? "text-indigo-600" : null,
+        className:
+          option === "Title"
+            ? "text-indigo-600"
+            : option === "Category"
+            ? "w-150"
+            : null,
       }))
     );
   };
-
-  useEffect(() => {
-    ListArticles();
-  }, []);
 
   useEffect(() => {
     filterTableColumn();

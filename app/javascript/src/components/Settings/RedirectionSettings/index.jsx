@@ -21,6 +21,7 @@ const RedirectionSettings = () => {
       const response = await redirectionApi.index();
       Logger.warn("response in redirection ", response.data.redirection);
       setRedirectionData(response.data.redirection);
+      setEditableId(null);
     } catch (error) {
       Logger.error(error);
     }
@@ -33,7 +34,7 @@ const RedirectionSettings = () => {
           To: newTo,
         },
       });
-      window.location.reload();
+      ListRedirections();
     } catch (error) {
       Logger.error(error);
     }
@@ -49,7 +50,8 @@ const RedirectionSettings = () => {
         },
         id
       );
-      window.location.reload();
+
+      ListRedirections();
     } catch (error) {
       Logger.error(error);
     }

@@ -10,6 +10,7 @@ const AddOrUpdateRedirection = ({
   id,
   newFrom,
   newTo,
+  setNewRedirection,
 }) => {
   return (
     <tr className="border-b-8  border-indigo-100">
@@ -34,7 +35,10 @@ const AddOrUpdateRedirection = ({
               icon={Check}
               className="ml-10"
               style="text"
-              onClick={() => handleSubmit(id)}
+              onClick={() => {
+                handleSubmit(id);
+                setNewRedirection(false);
+              }}
             />
           </div>
         ) : (
@@ -42,7 +46,10 @@ const AddOrUpdateRedirection = ({
             icon={Check}
             style="text"
             className="ml-10"
-            onClick={() => handleSubmit()}
+            onClick={() => {
+              handleSubmit();
+              setNewRedirection(false);
+            }}
           />
         )}
       </td>

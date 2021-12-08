@@ -15,6 +15,7 @@ const EditArticle = () => {
     label: "",
     value: "",
   });
+
   const [selectedCategoryId, setSelectedCategoryId] = useState();
   const [errors, setErrors] = useState({ input: "", select: "", textarea: "" });
   const LoadArticleDate = async () => {
@@ -23,12 +24,12 @@ const EditArticle = () => {
       const articleData = response.data.article;
       setArticleTitle(articleData.title);
       setArticleCategory({
-        label: articleData.category_name,
-        value: articleData.category_name,
+        label: articleData.category,
+        value: articleData.category,
       });
       setArticleBody(articleData.content);
       setArticlePublished(articleData.status);
-      Logger.warn("response in edit article", articleData.status);
+      Logger.warn("response in edit article", response.data.article);
     } catch (error) {
       Logger.error(error);
     }
