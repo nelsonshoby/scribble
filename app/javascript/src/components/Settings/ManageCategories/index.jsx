@@ -6,9 +6,10 @@ import Logger from "js-logger";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { toast } from "react-toastify";
 
+import categoryApi from "apis/category";
+
 import CreateOrEditCategory from "./CreateOrEditCategory";
 
-import categoryApi from "../../../apis/category";
 import { TOASTR_OPTIONS } from "../../../constants";
 
 const ManageCategories = () => {
@@ -16,7 +17,8 @@ const ManageCategories = () => {
   const [editableId, setEditableId] = useState();
   const [name, setName] = useState("");
   const [newCategory, setNewCategory] = useState(true);
-  const [characters, updateCharacters] = useState();
+  const [category, setUpdateCategory] = useState();
+  const [complete, setComplete] = useState();
 
   const handleUpdate = async id => {
     try {
@@ -63,7 +65,7 @@ const ManageCategories = () => {
       Logger.warn("response in cat", response.data.category);
       setCategoryList(response.data.category);
       Logger.warn("categoryList", categoryList);
-      updateCharacters(response.data.category);
+      setUpdateCategory(response.data.category);
       setEditableId(null);
     } catch (error) {
       Logger.error(error);
@@ -73,14 +75,23 @@ const ManageCategories = () => {
   useEffect(() => {
     ListCategories();
   }, []);
-  function handleOnDragEnd(result) {
+
+  useEffect(() => {
+    Logger.warn("setComplete", complete);
+  }, [complete]);
+
+  async function handleOnDragEnd(result) {
     if (!result.destination) return;
 
-    const items = Array.from(characters);
+    await categoryApi.sort(result.draggableId, {
+      category: { sequence: result.destination.index + 1 },
+    });
+    const items = Array.from(category);
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
 
-    updateCharacters(items);
+    setUpdateCategory(items);
+    setComplete(items);
   }
 
   return (
@@ -116,14 +127,14 @@ const ManageCategories = () => {
         </div>
         <div className="w-641">
           <DragDropContext onDragEnd={handleOnDragEnd}>
-            <Droppable droppableId="characters">
+            <Droppable droppableId="category">
               {provided => (
                 <ul
-                  className="characters"
+                  className="category"
                   {...provided.droppableProps}
                   ref={provided.innerRef}
                 >
-                  {characters?.map((category, index) => {
+                  {category?.map((category, index) => {
                     return (
                       <Draggable
                         key={String(category.id)}

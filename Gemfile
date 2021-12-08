@@ -56,6 +56,8 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
+gem "acts_as_list"
+gem "acts_in_sequence", git: "https://github.com/bigbinary/acts_in_sequence"
 gem "bcrypt", "~> 3.1.13"
 gem "pg", group: [:production]
 gem "sqlite3", "~> 1.4", group: [:development, :test]

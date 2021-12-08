@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     resources :redirections, only: %i[index update destroy create]
   end
 
+  put "/sort/:id", to: "categories#sort"
+
   root "home#index"
   get "*path", to: "home#index", via: :all
 end
