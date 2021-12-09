@@ -44,7 +44,7 @@ const NewArticleForm = ({
   return (
     <div>
       <Navbar />
-      <div className="flex-col w-2/4 mx-auto mt-20">
+      <div className="flex-col w-636 mx-auto mt-20">
         <div className="flex">
           <Input
             value={articleTitle}

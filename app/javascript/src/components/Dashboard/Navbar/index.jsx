@@ -13,7 +13,12 @@ const Navbar = () => {
         <div className="mx-6">
           <Header
             actionBlock={
-              <Button label="Preview" icon={ExternalLink} style="secondary" />
+              <Button
+                label="Preview"
+                icon={ExternalLink}
+                style="secondary"
+                to="/preview"
+              />
             }
             title={
               <div className="flex text-xl ">
