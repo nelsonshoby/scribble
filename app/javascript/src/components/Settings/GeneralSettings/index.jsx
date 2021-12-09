@@ -143,7 +143,10 @@ const GeneralSettings = () => {
           <Button
             className="mr-2 bg-indigo-500"
             label="Save Changes"
-            onClick={handleSubmit}
+            onClick={() => {
+              handleSubmit();
+              setChecked(false);
+            }}
           />
 
           <Button label="Cancel" style="text" to="/settings" />

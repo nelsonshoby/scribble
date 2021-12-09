@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import Logger from "js-logger";
 import { useParams } from "react-router";
 
-import articleApi from "../../apis/article";
-import NewArticleForm from "../NewArticle/NewArticleForm";
+import articleApi from "../../../apis/article";
+import NewArticleForm from "../NewArticleForm";
 
 const EditArticle = () => {
   const [articleTitle, setArticleTitle] = useState("");

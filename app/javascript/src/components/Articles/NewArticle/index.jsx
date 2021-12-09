@@ -2,9 +2,8 @@ import React, { useState } from "react";
 
 import Logger from "js-logger";
 
-import NewArticleForm from "./NewArticleForm";
-
-import articleApi from "../../apis/article";
+import articleApi from "../../../apis/article";
+import NewArticleForm from "../NewArticleForm";
 
 const NewArticle = () => {
   const [articleTitle, setArticleTitle] = useState("");
