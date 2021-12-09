@@ -179,7 +179,12 @@ const ManageCategories = () => {
                               </div>
                             </li>
                           ) : (
-                            <div className="border-t">
+                            <div
+                              className="border-t"
+                              ref={provided.innerRef}
+                              {...provided.draggableProps}
+                              {...provided.dragHandleProps}
+                            >
                               <CreateOrEditCategory
                                 setEditableId={setEditableId}
                                 handleSubmit={handleUpdate}
