@@ -116,13 +116,16 @@ const ManageCategories = () => {
               }}
             />
           ) : (
-            <CreateOrEditCategory
-              handleSubmit={handleSubmit}
-              setEditableId={setEditableId}
-              setName={setName}
-              name={name}
-              setNewCategory={setNewCategory}
-            />
+            <div className=" flex  items-center">
+              <Button icon={Reorder} style="text" />
+              <CreateOrEditCategory
+                handleSubmit={handleSubmit}
+                setEditableId={setEditableId}
+                setName={setName}
+                name={name}
+                setNewCategory={setNewCategory}
+              />
+            </div>
           )}
         </div>
         <div className="w-641">
