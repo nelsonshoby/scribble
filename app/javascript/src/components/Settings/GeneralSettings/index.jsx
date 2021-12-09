@@ -18,7 +18,7 @@ const GeneralSettings = () => {
   const ShowSiteDetails = async () => {
     try {
       const response = await sitedetailApi.show();
-      Logger.warn("ShowSiteDetails", response.data.extract.name);
+
       setSiteName(response.data.extract.name);
     } catch (error) {
       Logger.error(error);

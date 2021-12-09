@@ -20,7 +20,6 @@ const ArticleTable = ({
   const [filteredColumn, setFilteredColumn] = useState([]);
 
   const handleDelete = async id => {
-    Logger.warn("delete id", id);
     if (confirm("Want to delete?")) {
       try {
         await articleApi.destroy(id);
@@ -51,6 +50,11 @@ const ArticleTable = ({
     filterTableColumn();
   }, [tableColumn]);
 
+  useEffect(
+    () => [Logger.warn("filteredColumn", filteredColumn)],
+    [filteredColumn]
+  );
+
   const RowData = articleData
     .filter(article => {
       if (selectedCategory) return selectedCategory === article.category;
@@ -71,6 +75,7 @@ const ArticleTable = ({
 
       return true;
     });
+
   setRowCount(RowData.length);
   if (loading) {
     return (

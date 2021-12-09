@@ -29,7 +29,6 @@ const EditArticle = () => {
       });
       setArticleBody(articleData.content);
       setArticlePublished(articleData.status);
-      Logger.warn("response in edit article", response.data.article);
     } catch (error) {
       Logger.error(error);
     }
@@ -64,7 +63,6 @@ const EditArticle = () => {
 
   useEffect(() => {
     LoadArticleDate();
-    Logger.warn("id is", id);
   }, []);
 
   return (

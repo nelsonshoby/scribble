@@ -9,7 +9,7 @@ const SideBarSubComponent = ({ Tag, Heading, SubHeading }) => {
     <div className="w-full">
       <NavLink
         to={`/settings/${header}`}
-        activeClassName="bg-gray-400"
+        activeClassName="bg-gray-200"
         className="flex items-center py-3 px-3 m-3 rounded-sm"
       >
         <Tag className="mr-2" />

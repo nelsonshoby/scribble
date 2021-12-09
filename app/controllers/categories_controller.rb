@@ -39,11 +39,7 @@ class CategoriesController < ApplicationController
   end
 
   def sort
-    if @category.update(category_params)
-      render status: :ok, json: {
-        notice: t("successfully_updated", entity: "Category")
-      }
-    else
+    unless @category.update(category_params)
       render status: :unprocessable_entity, json: { error: @category.errors.full_messages }
     end
   end

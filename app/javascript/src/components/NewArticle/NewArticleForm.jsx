@@ -31,7 +31,7 @@ const NewArticleForm = ({
   const ListCategories = async () => {
     try {
       const response = await categoryApi.index();
-      Logger.warn("response in edit article index", response.data.category);
+
       setCategoryList(response.data.category);
     } catch (error) {
       Logger.error(error);
@@ -41,9 +41,6 @@ const NewArticleForm = ({
     ListCategories();
   }, []);
 
-  useEffect(() => {
-    Logger.warn("articlePublished", articlePublished);
-  }, [articlePublished]);
   return (
     <div>
       <Navbar />
@@ -67,7 +64,6 @@ const NewArticleForm = ({
             label="Select"
             name="ValueList"
             onChange={event => {
-              Logger.warn("selected category", event.value);
               setArticleCategory(event);
               setSelectedCategoryId(event.value);
               setErrors({ ...errors, select: "" });

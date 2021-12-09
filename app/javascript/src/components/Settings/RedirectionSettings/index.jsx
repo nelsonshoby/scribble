@@ -19,7 +19,7 @@ const RedirectionSettings = () => {
   const ListRedirections = async () => {
     try {
       const response = await redirectionApi.index();
-      Logger.warn("response in redirection ", response.data.redirection);
+
       setRedirectionData(response.data.redirection);
       setEditableId(null);
     } catch (error) {
@@ -58,7 +58,6 @@ const RedirectionSettings = () => {
   };
 
   const handleDelete = async id => {
-    Logger.warn("delete id", id);
     if (confirm("Want to delete?")) {
       try {
         await redirectionApi.destroy(id);

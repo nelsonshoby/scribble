@@ -18,7 +18,6 @@ const ManageCategories = () => {
   const [name, setName] = useState("");
   const [newCategory, setNewCategory] = useState(true);
   const [category, setUpdateCategory] = useState();
-  const [complete, setComplete] = useState();
 
   const handleUpdate = async id => {
     try {
@@ -48,7 +47,6 @@ const ManageCategories = () => {
   };
 
   const handleDelete = async id => {
-    Logger.warn("delete id", id);
     if (confirm("Want to delete?")) {
       try {
         await categoryApi.destroy(id);
@@ -62,7 +60,7 @@ const ManageCategories = () => {
   const ListCategories = async () => {
     try {
       const response = await categoryApi.index();
-      Logger.warn("response in cat", response.data.category);
+
       setCategoryList(response.data.category);
       Logger.warn("categoryList", categoryList);
       setUpdateCategory(response.data.category);
@@ -76,10 +74,6 @@ const ManageCategories = () => {
     ListCategories();
   }, []);
 
-  useEffect(() => {
-    Logger.warn("setComplete", complete);
-  }, [complete]);
-
   async function handleOnDragEnd(result) {
     if (!result.destination) return;
 
@@ -91,11 +85,10 @@ const ManageCategories = () => {
     items.splice(result.destination.index, 0, reorderedItem);
 
     setUpdateCategory(items);
-    setComplete(items);
   }
 
   return (
-    <div className="mx-auto  ">
+    <div className="mx-auto ">
       <div className="w-720 mt-4">
         <Typography style="h2">Manage Categories</Typography>
         <Typography style="body1" className="text-gray-600 mt-2">
@@ -116,15 +109,17 @@ const ManageCategories = () => {
               }}
             />
           ) : (
-            <div className=" flex  items-center">
-              <Button icon={Reorder} style="text" />
-              <CreateOrEditCategory
-                handleSubmit={handleSubmit}
-                setEditableId={setEditableId}
-                setName={setName}
-                name={name}
-                setNewCategory={setNewCategory}
-              />
+            <div className=" flex  items-center ">
+              <Button icon={Reorder} style="text" className="mr-2" />
+              <div className="mt-2">
+                <CreateOrEditCategory
+                  handleSubmit={handleSubmit}
+                  setEditableId={setEditableId}
+                  setName={setName}
+                  name={name}
+                  setNewCategory={setNewCategory}
+                />
+              </div>
             </div>
           )}
         </div>
@@ -166,6 +161,11 @@ const ManageCategories = () => {
                               <div className="flex">
                                 <Button
                                   className="mr-2 "
+                                  icon={Delete}
+                                  style="text"
+                                  onClick={() => handleDelete(category.id)}
+                                />
+                                <Button
                                   icon={Edit}
                                   style="text"
                                   onClick={() => {
@@ -173,11 +173,6 @@ const ManageCategories = () => {
                                     setName(category.name);
                                     setNewCategory(true);
                                   }}
-                                />
-                                <Button
-                                  icon={Delete}
-                                  style="text"
-                                  onClick={() => handleDelete(category.id)}
                                 />
                               </div>
                             </li>
