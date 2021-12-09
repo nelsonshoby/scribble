@@ -18,7 +18,7 @@ const GeneralSettings = () => {
   const ShowSiteDetails = async () => {
     try {
       const response = await sitedetailApi.show();
-      Logger.warn("ShowSiteDetails", response.data.extract.name);
+
       setSiteName(response.data.extract.name);
     } catch (error) {
       Logger.error(error);
@@ -33,7 +33,12 @@ const GeneralSettings = () => {
       );
     } else {
       try {
-        await sitedetailApi.update({ name: siteName, password: password });
+        await sitedetailApi.update({
+          site_detail: {
+            name: siteName,
+            password: password.length === 0 ? null : password,
+          },
+        });
       } catch (error) {
         Logger.error(error);
       }
@@ -138,7 +143,10 @@ const GeneralSettings = () => {
           <Button
             className="mr-2 bg-indigo-500"
             label="Save Changes"
-            onClick={handleSubmit}
+            onClick={() => {
+              handleSubmit();
+              setChecked(false);
+            }}
           />
 
           <Button label="Cancel" style="text" to="/settings" />

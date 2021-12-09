@@ -21,7 +21,7 @@ const RedirectionTable = ({
   setNewRedirection,
 }) => {
   return (
-    <table className=" w-672 mt-4">
+    <table className=" w-672 mt-4 ">
       <thead>
         <tr>
           <th className="p-2 text-left text-gray-400">From path</th>
@@ -89,6 +89,7 @@ const RedirectionTable = ({
               newTo={newTo}
               id={editableId}
               handleSubmit={handleUpdate}
+              setNewRedirection={setNewRedirection}
             />
           )
         )}
@@ -97,6 +98,7 @@ const RedirectionTable = ({
             setNewFrom={setNewFrom}
             setNewTo={setNewTo}
             handleSubmit={handleSubmit}
+            setNewRedirection={setNewRedirection}
           />
         )}
       </tbody>

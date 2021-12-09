@@ -8,9 +8,9 @@ import { setAuthHeaders } from "apis/axios";
 import { initializeLogger } from "common/logger";
 
 import { registerIntercepts } from "./apis/axios";
+import EditArticle from "./components/Articles/EditArticle";
+import NewArticle from "./components/Articles/NewArticle";
 import Dashboard from "./components/Dashboard";
-import EditArticle from "./components/EditArticle";
-import NewArticle from "./components/NewArticle";
 import Settings from "./components/Settings";
 
 const App = () => {

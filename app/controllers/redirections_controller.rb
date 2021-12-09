@@ -42,6 +42,9 @@ class RedirectionsController < ApplicationController
 
     def load_redirection
       @redirection = Redirection.find_by_id(params[:id])
+      unless @redirection
+        render status: :not_found, json: { error: "Redirection not found" }
+      end
     end
 
     def redirection_params

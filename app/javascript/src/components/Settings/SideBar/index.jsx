@@ -14,7 +14,7 @@ const SideBar = () => {
   ];
 
   return (
-    <div className="max-w-sm h-screen border-r-2">
+    <div className="max-w-sm max-h-full border-r-2">
       {Tags.map((Tag, index) => (
         <div key={index}>
           <SideBarSubComponent

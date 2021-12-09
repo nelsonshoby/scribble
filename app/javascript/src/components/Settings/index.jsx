@@ -3,6 +3,7 @@ import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 
 import GeneralSettings from "./GeneralSettings";
+import ManageCategories from "./ManageCategories";
 import RedirectionSettings from "./RedirectionSettings";
 import SideBar from "./SideBar";
 
@@ -21,6 +22,11 @@ const Settings = () => {
             exact
             path="/settings/Redirections"
             component={RedirectionSettings}
+          />
+          <Route
+            exact
+            path="/settings/Managecategories"
+            component={ManageCategories}
           />
         </Switch>
       </div>

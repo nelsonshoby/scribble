@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import Logger from "js-logger";
 import { useParams } from "react-router";
 
-import articleApi from "../../apis/article";
-import NewArticleForm from "../NewArticle/NewArticleForm";
+import articleApi from "../../../apis/article";
+import NewArticleForm from "../NewArticleForm";
 
 const EditArticle = () => {
   const [articleTitle, setArticleTitle] = useState("");
@@ -15,6 +15,7 @@ const EditArticle = () => {
     label: "",
     value: "",
   });
+
   const [selectedCategoryId, setSelectedCategoryId] = useState();
   const [errors, setErrors] = useState({ input: "", select: "", textarea: "" });
   const LoadArticleDate = async () => {
@@ -23,12 +24,11 @@ const EditArticle = () => {
       const articleData = response.data.article;
       setArticleTitle(articleData.title);
       setArticleCategory({
-        label: articleData.category_name,
-        value: articleData.category_name,
+        label: articleData.category,
+        value: articleData.category,
       });
       setArticleBody(articleData.content);
       setArticlePublished(articleData.status);
-      Logger.warn("response in edit article", articleData.status);
     } catch (error) {
       Logger.error(error);
     }
@@ -63,7 +63,6 @@ const EditArticle = () => {
 
   useEffect(() => {
     LoadArticleDate();
-    Logger.warn("id is", id);
   }, []);
 
   return (

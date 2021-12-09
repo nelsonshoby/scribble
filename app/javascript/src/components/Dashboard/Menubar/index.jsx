@@ -34,7 +34,7 @@ const Menubar = ({
 
   useEffect(() => {
     ListCategories();
-  }, []);
+  }, [categoryCount]);
 
   const handleSubmit = async () => {
     try {

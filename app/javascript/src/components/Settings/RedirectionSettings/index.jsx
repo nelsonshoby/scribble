@@ -19,8 +19,9 @@ const RedirectionSettings = () => {
   const ListRedirections = async () => {
     try {
       const response = await redirectionApi.index();
-      Logger.warn("response in redirection ", response.data.redirection);
+
       setRedirectionData(response.data.redirection);
+      setEditableId(null);
     } catch (error) {
       Logger.error(error);
     }
@@ -33,7 +34,7 @@ const RedirectionSettings = () => {
           To: newTo,
         },
       });
-      window.location.reload();
+      ListRedirections();
     } catch (error) {
       Logger.error(error);
     }
@@ -49,14 +50,14 @@ const RedirectionSettings = () => {
         },
         id
       );
-      window.location.reload();
+
+      ListRedirections();
     } catch (error) {
       Logger.error(error);
     }
   };
 
   const handleDelete = async id => {
-    Logger.warn("delete id", id);
     if (confirm("Want to delete?")) {
       try {
         await redirectionApi.destroy(id);
@@ -71,7 +72,7 @@ const RedirectionSettings = () => {
     ListRedirections();
   }, []);
   return (
-    <div className="mx-auto mt-4 ">
+    <div className="mx-auto mt-4 overflow-scroll ">
       <div className="w-720">
         <Typography style="h2">Redirections</Typography>
         <Typography style="body1" className="text-gray-600 mt-2">
