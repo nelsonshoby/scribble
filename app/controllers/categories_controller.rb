@@ -2,9 +2,10 @@
 
 class CategoriesController < ApplicationController
   before_action :load_category, only: [ :update, :destroy, :sort]
+  before_action :load_categories, only: [ :index, :load_category_and_article]
 
   def index
-    @categories = Category.all.order(:sequence)
+    render
   end
 
   def create
@@ -49,6 +50,10 @@ class CategoriesController < ApplicationController
   end
 
   private
+
+    def load_categories
+      @categories = Category.all.order(:sequence)
+    end
 
     def load_category
       @category = Category.find_by_id(params[:id])

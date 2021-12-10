@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Accordion } from "@bigbinary/neetoui/v2";
 import Logger from "js-logger";
 
-import categoryApi from "../../apis/category";
+import categoryApi from "apis/category";
 
 const SideBar = () => {
   const [categoryData, setCategoryData] = useState();

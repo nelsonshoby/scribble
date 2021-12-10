@@ -3,3 +3,5 @@ en:
   successfully_created: "%{entity} was successfully created!"
   successfully_destroyed: "%{entity} was successfully deleted!"
   successfully_updated: "%{entity} was successfully updated!"
+  slug:
+      immutable: "is immutable!"
