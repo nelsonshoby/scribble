@@ -1,34 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import { Accordion } from "@bigbinary/neetoui/v2";
-import Logger from "js-logger";
+import { NavLink } from "react-router-dom";
 
-import categoryApi from "apis/category";
-
-const SideBar = () => {
-  const [categoryData, setCategoryData] = useState();
-  useEffect(async () => {
-    try {
-      const response = await categoryApi.loadCategoryAndArticle();
-      setCategoryData(response.data.category);
-      Logger.warn("response in eui", response.data.category);
-    } catch (error) {
-      Logger.error(error);
-    }
-  }, []);
+const SideBar = ({ categoryData }) => {
   return (
-    <div className=" w-1/5 h-screen  border-r-2">
+    <div className=" w-300 h-screen  border-r-2">
       <Accordion padded>
-        {categoryData?.map((category, index) => (
+        {categoryData?.map((category, CategoryIndex) => (
           <Accordion.Item
-            key={index}
+            key={CategoryIndex}
             title={category.name}
-            className="border-none text-gray-600 font-bold "
+            className="border-none text-gray-600 "
           >
             {category.article.map((article, index) => (
-              <div key={index} className="ml-4 py-2 ">
+              <NavLink
+                className="ml-6 flex py-2"
+                key={index}
+                to={`/preview/${article.slug}`}
+                activeClassName="text-indigo-500"
+              >
                 {article.title}
-              </div>
+              </NavLink>
             ))}
           </Accordion.Item>
         ))}

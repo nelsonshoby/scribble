@@ -77,9 +77,13 @@ const ManageCategories = () => {
   async function handleOnDragEnd(result) {
     if (!result.destination) return;
 
-    await categoryApi.sort(result.draggableId, {
-      category: { sequence: result.destination.index + 1 },
-    });
+    setTimeout(
+      async () =>
+        await categoryApi.sort(result.draggableId, {
+          category: { sequence: result.destination.index + 1 },
+        }),
+      100
+    );
     const items = Array.from(category);
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);

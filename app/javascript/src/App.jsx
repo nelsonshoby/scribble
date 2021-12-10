@@ -38,7 +38,10 @@ const App = () => {
         <Route exact path="/articles/new" component={NewArticle} />
         <Route exact path="/articles/:id/edit" component={EditArticle} />
         <Route path="/settings" component={Settings} />
-        <Route exact path="/preview" component={EndUserInterface} />
+        <Route
+          path="/preview"
+          component={() => <EndUserInterface key={window.location.pathname} />}
+        />
       </Switch>
     </Router>
   );
