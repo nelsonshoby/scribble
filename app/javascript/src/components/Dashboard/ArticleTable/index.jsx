@@ -36,7 +36,9 @@ const ArticleTable = ({
         dataIndex: option.toLowerCase(),
         key: option.toLowerCase(),
         title: option.toUpperCase(),
-        className: option === "Category" ? "w-150" : null,
+        width: option === "Category" ? 150 : null,
+
+        className: option !== "Title" ? "text-gray-600" : null,
       }))
     );
   };
@@ -83,7 +85,7 @@ const ArticleTable = ({
   return (
     <div className="h-full">
       <Table
-        className="even:bg-gray-100 cursor-auto "
+        className="even:bg-gray-100 cursor-auto  text-indigo-500"
         rowSelection={false}
         columnData={[
           ...filteredColumn,

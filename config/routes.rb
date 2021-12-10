@@ -11,6 +11,8 @@ Rails.application.routes.draw do
 
   put "/sort/:id", to: "categories#sort"
 
+  get "/loadCategoryAndArticle", to: "categories#load_category_and_article"
+
   root "home#index"
   get "*path", to: "home#index", via: :all
 end

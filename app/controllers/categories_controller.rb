@@ -44,6 +44,10 @@ class CategoriesController < ApplicationController
     end
   end
 
+  def load_category_and_article
+    render
+  end
+
   private
 
     def load_category
