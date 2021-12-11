@@ -11,6 +11,7 @@ import { registerIntercepts } from "./apis/axios";
 import EditArticle from "./components/Articles/EditArticle";
 import NewArticle from "./components/Articles/NewArticle";
 import Dashboard from "./components/Dashboard";
+import EndUserInterface from "./components/EndUserInterface";
 import Settings from "./components/Settings";
 
 const App = () => {
@@ -37,6 +38,10 @@ const App = () => {
         <Route exact path="/articles/new" component={NewArticle} />
         <Route exact path="/articles/:id/edit" component={EditArticle} />
         <Route path="/settings" component={Settings} />
+        <Route
+          path="/preview"
+          component={() => <EndUserInterface key={window.location.pathname} />}
+        />
       </Switch>
     </Router>
   );

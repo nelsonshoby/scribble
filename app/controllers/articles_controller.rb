@@ -42,6 +42,13 @@ class ArticlesController < ApplicationController
     end
   end
 
+  def fetch_data
+    @article = Article.find_by(slug: params[:slug])
+    unless @article
+      render status: :not_found, json: { error: t("article_does_not_exist") }
+    end
+  end
+
   private
 
     def load_article

@@ -7,13 +7,21 @@ import { Header } from "@bigbinary/neetoui/v2/layouts";
 import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
+  const handleClick = () => {
+    window.open(window.open("/preview"));
+  };
   return (
     <div>
       <nav className="border-b-2 sticky  ">
         <div className="mx-6">
           <Header
             actionBlock={
-              <Button label="Preview" icon={ExternalLink} style="secondary" />
+              <Button
+                label="Preview"
+                icon={ExternalLink}
+                style="secondary"
+                onClick={handleClick}
+              />
             }
             title={
               <div className="flex text-xl ">
