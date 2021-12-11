@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 
 const SideBar = ({ categoryData }) => {
   return (
-    <div className=" w-300 h-screen  border-r-2">
+    <div className=" w-300 h-screen  border-r-2 font-semibold">
       <Accordion padded>
         {categoryData?.map((category, CategoryIndex) => (
           <Accordion.Item
@@ -15,7 +15,7 @@ const SideBar = ({ categoryData }) => {
           >
             {category.article.map((article, index) => (
               <NavLink
-                className="ml-6 flex py-2"
+                className="ml-6 flex py-2 "
                 key={index}
                 to={`/preview/${article.slug}`}
                 activeClassName="text-indigo-500"

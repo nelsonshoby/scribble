@@ -7,6 +7,9 @@ import { Header } from "@bigbinary/neetoui/v2/layouts";
 import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
+  const handleClick = () => {
+    window.open(window.open("/preview"));
+  };
   return (
     <div>
       <nav className="border-b-2 sticky  ">
@@ -17,7 +20,7 @@ const Navbar = () => {
                 label="Preview"
                 icon={ExternalLink}
                 style="secondary"
-                to="/preview"
+                onClick={handleClick}
               />
             }
             title={

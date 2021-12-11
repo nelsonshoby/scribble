@@ -13,21 +13,18 @@ const EndUserInterface = () => {
   const [categoryData, setCategoryData] = useState();
   const [firstArticle, setFirstArticle] = useState();
   const [loading, setLoading] = useState(true);
-  // let firstArticle
+
   useEffect(async () => {
     try {
-      // setLoading(true)
       const response = await categoryApi.loadCategoryAndArticle();
 
-      Logger.warn("response in eui", response.data.category);
       const data = response.data.category.filter(
         category => category.article.length > 0
       );
       setCategoryData(data);
 
-      Logger.warn("response in filter", data[0].article[0].slug);
-      const final = data[0].article[0].slug;
-      setFirstArticle(final);
+      const firstSlug = data[0].article[0].slug;
+      setFirstArticle(firstSlug);
       setLoading(false);
     } catch (error) {
       Logger.error(error);
@@ -40,7 +37,6 @@ const EndUserInterface = () => {
 
   return (
     <div className="flex flex-col h-screen">
-      {logger.warn("dfdff", firstArticle)}
       <Heading className="overflow-y-hidden" />
       <div className="flex flex-auto overflow-y-hidden">
         <SideBar categoryData={categoryData} />

@@ -5,23 +5,23 @@ import { Settings, Repeat, Seo } from "@bigbinary/neeto-icons";
 import SideBarSubComponent from "./SideBarSubComponent";
 
 const SideBar = () => {
-  const Tags = [Settings, Repeat, Seo];
-  const Heading = ["General", "Redirections", "Manage categories"];
-  const SubHeading = [
-    " Page Title, Brand Name & Meta Description",
+  const tags = [Settings, Repeat, Seo];
+  const heading = ["General", "Redirections", "Manage categories"];
+  const subHeading = [
+    "Page Title, Brand Name & Meta Description",
     "Create & configure redirection rules",
     "Edit and Reorder KB Structure",
   ];
 
   return (
     <div className="max-w-sm max-h-full border-r-2">
-      {Tags.map((Tag, index) => (
+      {tags.map((Icon, index) => (
         <div key={index}>
           <SideBarSubComponent
             key={index}
-            Tag={Tag}
-            Heading={Heading[index]}
-            SubHeading={SubHeading[index]}
+            Tag={Icon}
+            Heading={heading[index]}
+            SubHeading={subHeading[index]}
           />
         </div>
       ))}
