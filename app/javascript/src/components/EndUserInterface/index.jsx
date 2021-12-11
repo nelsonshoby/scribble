@@ -65,9 +65,8 @@ const EndUserInterface = () => {
         <Switch>
           <Redirect exact path="/preview" to={`/preview/${firstArticle}`} />
           <Route exact path="/preview/:slug">
-            {Logger.warn(isNil(siteDetails))}
             {isNil(siteDetails) ? (
-              <Redirect to={`/authentication/${siteName}`} />
+              <Redirect to={`/authentication/${siteName}/${firstArticle}`} />
             ) : (
               <ShowArticle />
             )}
