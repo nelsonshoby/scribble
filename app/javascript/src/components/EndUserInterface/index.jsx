@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import Logger from "js-logger";
-import { isNil } from "ramda";
+import { either, isEmpty, isNil } from "ramda";
 import { Redirect, Route, Switch } from "react-router-dom";
 
 import Heading from "./Heading";
@@ -12,9 +12,13 @@ import categoryApi from "../../apis/category";
 import sitedetailApi from "../../apis/sitedetail";
 
 const EndUserInterface = () => {
+  const authToken = sessionStorage.getItem("authToken");
+
+  const isLoggedIn = !either(isNil, isEmpty)(authToken) && authToken !== "null";
+
   const [categoryData, setCategoryData] = useState();
   const [firstArticle, setFirstArticle] = useState();
-  const [siteDetails, setSiteDetails] = useState();
+  const [siteDetails, setSiteDetails] = useState(false);
   const [siteName, setSiteName] = useState();
   const [loading, setLoading] = useState(true);
 
@@ -29,24 +33,31 @@ const EndUserInterface = () => {
 
       const firstSlug = data[0].article[0].slug;
       setFirstArticle(firstSlug);
-      setLoading(false);
     } catch (error) {
       Logger.error(error);
     }
   };
+
   const LoadSiteDetails = async () => {
     try {
       const response = await sitedetailApi.show();
       Logger.warn(
         "site details showarticle",
-        response.data.extract.password_digest
+        response.data.sitedetail.password_digest
       );
-      setSiteDetails(response.data.extract.password_digest);
-      setSiteName(response.data.extract.name);
+
+      setSiteDetails(response.data.password);
+      setSiteName(response.data.sitedetail.name);
     } catch (error) {
       Logger.error(error);
     }
   };
+
+  useEffect(() => {
+    if (siteName && firstArticle) {
+      setLoading(false);
+    }
+  }, [siteName, siteDetails, firstArticle]);
 
   useEffect(() => {
     LoadCategoryAndArticleDetails();
@@ -64,8 +75,9 @@ const EndUserInterface = () => {
         <SideBar categoryData={categoryData} />
         <Switch>
           <Redirect exact path="/preview" to={`/preview/${firstArticle}`} />
+
           <Route exact path="/preview/:slug">
-            {isNil(siteDetails) ? (
+            {siteDetails && !isLoggedIn ? (
               <Redirect to={`/authentication/${siteName}/${firstArticle}`} />
             ) : (
               <ShowArticle />

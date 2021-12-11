@@ -1,12 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { Typography, Input, Button } from "@bigbinary/neetoui/v2";
+import Logger from "js-logger";
 import { useParams } from "react-router";
 
+import authApi from "../../../apis/auth";
 import Group from "../../../Pictures/Group";
 
 const Authentication = () => {
   const { sitename } = useParams(sitename);
+  const { firstArticle } = useParams(firstArticle);
+  const slug = firstArticle;
+
+  const [password, setPassword] = useState();
+
+  useEffect(() => {
+    Logger.warn("slug in params", slug);
+  }, []);
+  const handleSubmit = async () => {
+    try {
+      const response = await authApi.login({
+        login: { name: sitename, password: password },
+      });
+      Logger.warn("authapi", response.data);
+      sessionStorage.setItem("authToken", response.data.authentication_token);
+      window.location.href = `/preview/${slug}`;
+    } catch (error) {
+      Logger.error(error);
+    }
+  };
+
   return (
     <div>
       <div className="h-56 w-full flex justify-center items-center border-b-2">
@@ -27,9 +50,14 @@ const Authentication = () => {
             label="Password"
             placeholder="Enter Password"
             type="password"
+            onChange={event => setPassword(event.target.value)}
           />
 
-          <Button className="mt-4 bg-indigo-500" label="Continue" />
+          <Button
+            className="mt-4 bg-indigo-500"
+            label="Continue"
+            onClick={() => handleSubmit()}
+          />
         </div>
       </div>
     </div>
