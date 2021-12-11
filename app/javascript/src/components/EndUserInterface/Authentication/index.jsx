@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import { Typography, Input, Button } from "@bigbinary/neetoui/v2";
 import Logger from "js-logger";
 import { useParams } from "react-router";
 
 import authApi from "../../../apis/auth";
+import { setAuthHeaders } from "../../../apis/axios";
 import Group from "../../../Pictures/Group";
 
 const Authentication = () => {
@@ -13,20 +14,20 @@ const Authentication = () => {
   const slug = firstArticle;
 
   const [password, setPassword] = useState();
+  const [error, setError] = useState();
 
-  useEffect(() => {
-    Logger.warn("slug in params", slug);
-  }, []);
   const handleSubmit = async () => {
     try {
       const response = await authApi.login({
         login: { name: sitename, password: password },
       });
+      setAuthHeaders();
       Logger.warn("authapi", response.data);
       sessionStorage.setItem("authToken", response.data.authentication_token);
       window.location.href = `/preview/${slug}`;
     } catch (error) {
       Logger.error(error);
+      setError("Please check th password!");
     }
   };
 
@@ -51,6 +52,7 @@ const Authentication = () => {
             placeholder="Enter Password"
             type="password"
             onChange={event => setPassword(event.target.value)}
+            error={error}
           />
 
           <Button

@@ -31,6 +31,9 @@ const handleSuccessResponse = response => {
 };
 
 const handleErrorResponse = axiosErrorObject => {
+  if (axiosErrorObject.response?.status === 401) {
+    sessionStorage.removeItem("authToken");
+  }
   Toastr.error(
     axiosErrorObject.response?.data?.error || DEFAULT_ERROR_NOTIFICATION
   );

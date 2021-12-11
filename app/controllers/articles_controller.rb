@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ArticlesController < ApplicationController
+  # before_action :authenticate_user_using_x_auth_token, only: [:fetch_data]
+
   before_action :load_article, only: [:show, :update, :destroy]
 
   def index

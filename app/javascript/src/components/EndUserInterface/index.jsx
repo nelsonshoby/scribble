@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 
+import { PageLoader } from "@bigbinary/neetoui/v2";
 import Logger from "js-logger";
 import { either, isEmpty, isNil } from "ramda";
 import { Redirect, Route, Switch } from "react-router-dom";
@@ -14,7 +15,7 @@ import sitedetailApi from "../../apis/sitedetail";
 const EndUserInterface = () => {
   const authToken = sessionStorage.getItem("authToken");
 
-  const isLoggedIn = !either(isNil, isEmpty)(authToken) && authToken !== "null";
+  var isLoggedIn = !either(isNil, isEmpty)(authToken) && authToken !== "null";
 
   const [categoryData, setCategoryData] = useState();
   const [firstArticle, setFirstArticle] = useState();
@@ -27,11 +28,11 @@ const EndUserInterface = () => {
       const response = await categoryApi.loadCategoryAndArticle();
 
       const data = response.data.category.filter(
-        category => category.article.length > 0
+        category => category?.article.length > 0
       );
       setCategoryData(data);
 
-      const firstSlug = data[0].article[0].slug;
+      const firstSlug = data[0]?.article[0].slug;
       setFirstArticle(firstSlug);
     } catch (error) {
       Logger.error(error);
@@ -41,11 +42,7 @@ const EndUserInterface = () => {
   const LoadSiteDetails = async () => {
     try {
       const response = await sitedetailApi.show();
-      Logger.warn(
-        "site details showarticle",
-        response.data.sitedetail.password_digest
-      );
-
+      isLoggedIn = response.data.password;
       setSiteDetails(response.data.password);
       setSiteName(response.data.sitedetail.name);
     } catch (error) {
@@ -65,7 +62,11 @@ const EndUserInterface = () => {
   }, []);
 
   if (loading) {
-    return <div>Loading</div>;
+    return (
+      <div className="flex justify-center items-center mt-64">
+        <PageLoader text="Loading..." />
+      </div>
+    );
   }
 
   return (
@@ -78,6 +79,7 @@ const EndUserInterface = () => {
 
           <Route exact path="/preview/:slug">
             {siteDetails && !isLoggedIn ? (
+              // <Authentication siteName={siteName} firstArticle={firstArticle}/>
               <Redirect to={`/authentication/${siteName}/${firstArticle}`} />
             ) : (
               <ShowArticle />
