@@ -13,7 +13,7 @@ const setAuthHeaders = (setLoading = () => null) => {
       .querySelector('[name="csrf-token"]')
       .getAttribute("content"),
   };
-  const token = localStorage.getItem("authToken");
+  const token = sessionStorage.getItem("authToken");
   if (token) {
     axios.defaults.headers["X-Auth-Token"] = token;
   }
@@ -32,14 +32,13 @@ const handleSuccessResponse = response => {
 
 const handleErrorResponse = axiosErrorObject => {
   if (axiosErrorObject.response?.status === 401) {
-    setTimeout(() => (window.location.href = "/"), 2000);
+    sessionStorage.removeItem("authToken");
   }
   Toastr.error(
     axiosErrorObject.response?.data?.error || DEFAULT_ERROR_NOTIFICATION
   );
-  if (axiosErrorObject.response?.status === 423) {
-    window.location.href = "/";
-  }
+  // if (axiosErrorObject.response?.status === 423) {
+  // }
 
   return Promise.reject(axiosErrorObject);
 };

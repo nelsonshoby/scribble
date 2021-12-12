@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 class SiteDetailsController < ApplicationController
+  before_action :load_site_details, only: [:show, :update]
   def show
-    @sitedetail = SiteDetail.first
+    render
   end
 
   def update
-    site = SiteDetail.first
-    if site.update(site_detail_params)
+    if @sitedetail.update(site_detail_params)
       render status: :ok, json: {
         notice: t("successfully_updated", entity: "SiteDetail")
       }
@@ -17,6 +17,10 @@ class SiteDetailsController < ApplicationController
   end
 
   private
+
+    def load_site_details
+      @sitedetail = SiteDetail.first
+    end
 
     def site_detail_params
       params.require(:site_detail).permit(:name, :password)

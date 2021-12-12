@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { Plus } from "@bigbinary/neeto-icons";
-import { Typography } from "@bigbinary/neetoui/v2";
-import { Button } from "@bigbinary/neetoui/v2";
+import { Typography, Button } from "@bigbinary/neetoui/v2";
 import Logger from "js-logger";
 
 import RedirectionTable from "./RedirectionTable";

@@ -9,21 +9,23 @@ import articleApi from "apis/article";
 const ShowArticle = () => {
   const { slug } = useParams(slug);
   const [articleData, setArticleData] = useState();
+
   const LoadArticleData = async () => {
     try {
       const response = await articleApi.fetchData(slug);
-      Logger.warn("response in showArticle", response.data);
+      Logger.warn("response in showArticle", response.data.content);
       setArticleData(response.data);
     } catch (error) {
       Logger.error(error);
     }
   };
+
   useEffect(() => {
     LoadArticleData();
   }, []);
+
   return (
     <div className="w-1069 flex-col m-8 overflow-scroll">
-      {Logger.warn("slug", slug)}
       <Typography style="h1" className="text-4xl text-gray-800">
         {articleData?.title}
       </Typography>

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ArticlesController < ApplicationController
+  before_action :authenticate_user_using_x_auth_token, only: [:fetch_data], if: -> { password_protected }
+
   before_action :load_article, only: [:show, :update, :destroy]
 
   def index
@@ -50,6 +52,10 @@ class ArticlesController < ApplicationController
   end
 
   private
+
+    def password_protected
+      SiteDetail.first.password_digest?
+    end
 
     def load_article
       @article = Article.find_by_id(params[:id])
