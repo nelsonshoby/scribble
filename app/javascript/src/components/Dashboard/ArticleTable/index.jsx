@@ -47,11 +47,6 @@ const ArticleTable = ({
     filterTableColumn();
   }, [tableColumn]);
 
-  useEffect(
-    () => [Logger.warn("filteredColumn", filteredColumn)],
-    [filteredColumn]
-  );
-
   const RowData = articleData
     .filter(article => {
       if (selectedCategory) return selectedCategory === article.category;

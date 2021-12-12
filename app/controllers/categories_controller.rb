@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class CategoriesController < ApplicationController
-  # before_action :authenticate_user_using_x_auth_token, only: [:load_category_and_article], if: -> { password_protected }
   before_action :load_category, only: [ :update, :destroy, :sort]
   before_action :load_categories, only: [ :index, :load_category_and_articles]
 
@@ -51,10 +50,6 @@ class CategoriesController < ApplicationController
   end
 
   private
-
-    # def password_protected
-    #   SiteDetail.first.password_digest?
-    # end
 
     def load_categories
       @categories = Category.all.order(:sequence)

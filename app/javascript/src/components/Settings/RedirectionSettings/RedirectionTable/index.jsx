@@ -34,7 +34,7 @@ const RedirectionTable = ({
           editableId !== ele.id ? (
             <tr key={index} className="border-b-8  border-indigo-100">
               <td
-                className="px-2 py-4 text-left bg-white mt-4 "
+                className="px-2 py-4 text-left bg-white mt-4 whitespace-no-wrap"
                 style={{
                   maxWidth: "70px",
                   overflowX: "scroll",
@@ -50,7 +50,7 @@ const RedirectionTable = ({
                 </div>
               </td>
               <td
-                className="px-2 py-4  text-left bg-white mt-4 "
+                className="px-2 py-4  text-left bg-white mt-4 whitespace-no-wrap"
                 style={{
                   maxWidth: "70px",
                   overflowX: "scroll",
@@ -60,7 +60,7 @@ const RedirectionTable = ({
               >
                 {window.location.origin + "/" + ele.To}
               </td>
-              <td className="px-2 py-4  text-left  bg-white mt-4  ">
+              <td className="px-2 py-4  text-left  bg-white mt-4   whitespace-no-wrap">
                 <div className="flex">
                   <Button
                     icon={Delete}
