@@ -79,8 +79,12 @@ const EndUserInterface = () => {
 
           <Route exact path="/preview/:slug">
             {siteDetails && !isLoggedIn ? (
-              // <Authentication siteName={siteName} firstArticle={firstArticle}/>
-              <Redirect to={`/authentication/${siteName}/${firstArticle}`} />
+              <Redirect
+                to={{
+                  pathname: `/authentication/${siteName}`,
+                  state: { firstArticle: firstArticle },
+                }}
+              />
             ) : (
               <ShowArticle />
             )}

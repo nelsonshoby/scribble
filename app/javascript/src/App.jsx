@@ -39,10 +39,7 @@ const App = () => {
         <Route exact path="/articles/new" component={NewArticle} />
         <Route exact path="/articles/:id/edit" component={EditArticle} />
         <Route path="/settings" component={Settings} />
-        <Route
-          path="/authentication/:sitename/:firstArticle"
-          component={Authentication}
-        />
+        <Route path="/authentication/:sitename" component={Authentication} />
         <Route
           path="/preview"
           component={() => <EndUserInterface key={window.location.pathname} />}
