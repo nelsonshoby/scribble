@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { Plus, Reorder, Edit, Delete } from "@bigbinary/neeto-icons";
+import { Plus, Edit, Delete } from "@bigbinary/neeto-icons";
 import { Typography, Button } from "@bigbinary/neetoui/v2";
 import Logger from "js-logger";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
@@ -99,7 +99,7 @@ const ManageCategories = () => {
           Create and configure the categories inside your scribble.
         </Typography>
 
-        <div className="w-260">
+        <div className="w-260 ">
           {newCategory ? (
             <Button
               label="Add New Category"
@@ -114,7 +114,6 @@ const ManageCategories = () => {
             />
           ) : (
             <div className=" flex  items-center ">
-              <Button icon={Reorder} style="text" className="mr-2" />
               <div className="mt-2">
                 <CreateOrEditCategory
                   handleSubmit={handleSubmit}
@@ -154,7 +153,20 @@ const ManageCategories = () => {
                             >
                               <div className="flex  items-center w-2/4">
                                 <Button
-                                  icon={Reorder}
+                                  icon={() => (
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      viewBox="0 0 24 24"
+                                      width="18"
+                                      height="18"
+                                    >
+                                      <path fill="none" d="M0 0h24v24H0z" />
+                                      <path
+                                        d="M18 11V8l4 4-4 4v-3h-5v5h3l-4 4-4-4h3v-5H6v3l-4-4 4-4v3h5V6H8l4-4 4 4h-3v5z"
+                                        fill="rgba(135,146,157,1)"
+                                      />
+                                    </svg>
+                                  )}
                                   style="text"
                                   className="mr-2"
                                 />

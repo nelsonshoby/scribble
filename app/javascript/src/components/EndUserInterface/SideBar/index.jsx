@@ -13,7 +13,7 @@ const SideBar = ({ categoryData }) => {
             title={category.name}
             className="border-none text-gray-600 "
           >
-            {category.article.map((article, index) => (
+            {category.articles.map((article, index) => (
               <NavLink
                 className="ml-6 flex py-2 "
                 key={index}

@@ -34,7 +34,7 @@ const Menubar = ({
 
   useEffect(() => {
     ListCategories();
-  }, [categoryCount]);
+  }, []);
 
   const handleSubmit = async () => {
     try {
@@ -49,7 +49,7 @@ const Menubar = ({
 
   return (
     <div className="flex ">
-      <MenuBar showMenu={true} title="Article">
+      <MenuBar showMenu={true} title="Articles">
         {articleStatus.map((status, index) => (
           <MenuBar.Block
             label={status}

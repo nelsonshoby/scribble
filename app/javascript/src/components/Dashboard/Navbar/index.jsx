@@ -34,7 +34,7 @@ const Navbar = () => {
                   activeClassName="text-indigo-500 "
                   className="ml-4 text-gray-400"
                 >
-                  Article
+                  Articles
                 </NavLink>
                 <NavLink
                   to="/settings"
