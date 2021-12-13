@@ -22,4 +22,9 @@ class SiteDetailTest < ActiveSupport::TestCase
     @site_info.password = "99qwe"
     assert_raises("ValidationError") { @site_info.save! }
   end
+
+  def test_password_should_have_atleast_one_number
+    @site_info.password = "aabccd"
+    assert_raises("ValidationError") { @site_info.save! }
+  end
 end
