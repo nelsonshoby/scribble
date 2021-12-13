@@ -16,7 +16,10 @@ def create_sample_data!
   puts 'Seeding with sample data...'
   SiteDetail.create!(
     name: 'Spinkart',
-    password: 'welcome'
-  )
 
+  )
+  category = Category.create!(name: "Getting started")
+  Article.create!(title: "Welcome to scribble", status: "Draft",content: "Example", category: category )
+  Article.create!(title: "Welcome to article", status: "Published",content: "Example", category: category )
+  
 end

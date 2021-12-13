@@ -11,6 +11,7 @@ import { TOASTR_OPTIONS } from "../../../constants";
 const GeneralSettings = () => {
   const [checked, setChecked] = useState(false);
   const [password, setPassword] = useState("");
+
   const [siteName, setSiteName] = useState("");
   const [passwordLength, setPasswordLength] = useState(false);
   const [letterAndNumber, setLetterAndNumber] = useState(false);
@@ -18,6 +19,7 @@ const GeneralSettings = () => {
   const ShowSiteDetails = async () => {
     try {
       const response = await sitedetailApi.show();
+
       setSiteName(response.data.sitedetail.name);
     } catch (error) {
       Logger.error(error);
@@ -148,7 +150,12 @@ const GeneralSettings = () => {
             }}
           />
 
-          <Button label="Cancel" style="text" to="/settings" />
+          <Button
+            label="Cancel"
+            style="text"
+            to="/settings/General"
+            onClick={() => setChecked(false)}
+          />
         </div>
       </div>
     </div>

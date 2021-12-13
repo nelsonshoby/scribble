@@ -1,8 +1,7 @@
 import React from "react";
 
 import { ExternalLink } from "@bigbinary/neeto-icons";
-import { Button } from "@bigbinary/neetoui/v2";
-import { Typography } from "@bigbinary/neetoui/v2";
+import { Typography, Button } from "@bigbinary/neetoui/v2";
 import { Header } from "@bigbinary/neetoui/v2/layouts";
 import { NavLink } from "react-router-dom";
 

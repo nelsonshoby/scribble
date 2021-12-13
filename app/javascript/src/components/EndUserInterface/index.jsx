@@ -21,7 +21,7 @@ const EndUserInterface = () => {
   const [siteDetails, setSiteDetails] = useState(false);
   const [siteName, setSiteName] = useState();
   const [loading, setLoading] = useState(true);
-  const [redirectionData, setRedirectionData] = useState();
+  const [redirectionData, setRedirectionData] = useState([]);
 
   const authToken = sessionStorage.getItem("authToken");
 
@@ -66,7 +66,7 @@ const EndUserInterface = () => {
   };
 
   useEffect(() => {
-    if (siteName && siteDetails) {
+    if (siteName) {
       setLoading(false);
     }
   }, [siteName, siteDetails]);
@@ -93,11 +93,11 @@ const EndUserInterface = () => {
           <div className="flex flex-auto overflow-y-hidden">
             <SideBar categoryData={categoryData} />
             <Switch>
-              {redirectionData.map((redirection, index) => {
+              {redirectionData?.map((redirection, index) => {
                 <Redirect
                   key={index}
                   exact
-                  from={redirection.From}
+                  from={"/preview/" + redirection.From}
                   to={redirection.To}
                 />;
               })}
