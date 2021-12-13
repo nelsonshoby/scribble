@@ -4,9 +4,9 @@ import { Plus } from "@bigbinary/neeto-icons";
 import { Typography, Button } from "@bigbinary/neetoui/v2";
 import Logger from "js-logger";
 
-import RedirectionTable from "./RedirectionTable";
+import redirectionApi from "apis/redirection";
 
-import redirectionApi from "../../../apis/redirection";
+import RedirectionTable from "./RedirectionTable";
 
 const RedirectionSettings = () => {
   const [redirectionData, setRedirectionData] = useState([]);

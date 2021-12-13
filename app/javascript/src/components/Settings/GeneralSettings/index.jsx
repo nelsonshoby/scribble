@@ -5,7 +5,8 @@ import { Typography, Input, Checkbox, Button } from "@bigbinary/neetoui/v2";
 import Logger from "js-logger";
 import { toast } from "react-toastify";
 
-import sitedetailApi from "../../../apis/sitedetail";
+import sitedetailApi from "apis/sitedetail";
+
 import { TOASTR_OPTIONS } from "../../../constants";
 
 const GeneralSettings = () => {

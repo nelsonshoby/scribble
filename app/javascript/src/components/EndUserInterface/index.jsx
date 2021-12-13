@@ -5,15 +5,15 @@ import Logger from "js-logger";
 import { either, isEmpty, isNil } from "ramda";
 import { Redirect, Switch } from "react-router-dom";
 
+import categoryApi from "apis/category";
+import redirectionApi from "apis/redirection";
+import sitedetailApi from "apis/sitedetail";
+import PrivateRoute from "common/PrivateRoute";
+
 import Heading from "./Heading";
 import NoDataFound from "./NoDataFound";
 import ShowArticle from "./ShowArticle";
 import SideBar from "./SideBar";
-
-import categoryApi from "../../apis/category";
-import redirectionApi from "../../apis/redirection";
-import sitedetailApi from "../../apis/sitedetail";
-import PrivateRoute from "../../common/PrivateRoute";
 
 const EndUserInterface = () => {
   const [categoryData, setCategoryData] = useState([]);

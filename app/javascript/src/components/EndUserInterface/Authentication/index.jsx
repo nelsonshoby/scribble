@@ -4,8 +4,9 @@ import { Typography, Input, Button } from "@bigbinary/neetoui/v2";
 import Logger from "js-logger";
 import { useParams } from "react-router";
 
-import authApi from "../../../apis/auth";
-import { setAuthHeaders } from "../../../apis/axios";
+import authApi from "apis/auth";
+import { setAuthHeaders } from "apis/axios";
+
 import Group from "../../../Pictures/Group";
 
 const Authentication = () => {
