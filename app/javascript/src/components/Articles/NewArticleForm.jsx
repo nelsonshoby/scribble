@@ -91,7 +91,7 @@ const NewArticleForm = ({
         />
         <div className="flex mt-2">
           <Button
-            className="bg-indigo-500"
+            className="bg-indigo-500 "
             label={articlePublished ? "Publish" : "Save Draft"}
             onClick={() => handleSubmit()}
           />
@@ -99,7 +99,7 @@ const NewArticleForm = ({
             closeOnSelect={false}
             autoWidth={false}
             buttonStyle="bg-indigo-500"
-            className="bg-indigo-500 text-white"
+            className="bg-indigo-500 text-white border-l-2"
             position="bottom-end"
           >
             <li>
