@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 const SideBar = ({ categoryData }) => {
   return (
     <div className=" w-300 h-screen  border-r-2 font-semibold">
-      <Accordion padded>
+      <Accordion padded defaultActiveKey={0}>
         {categoryData?.map((category, CategoryIndex) => (
           <Accordion.Item
             key={CategoryIndex}

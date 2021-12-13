@@ -107,7 +107,8 @@ const EndUserInterface = () => {
                 path="/preview/:slug"
                 redirectRoute={`/authentication/${siteName}`}
                 condition={!(siteDetails && !isLoggedIn)}
-                component={ShowArticle}
+                component={() => <ShowArticle key={window.location.pathname} />}
+                // component={ShowArticle}
               />
             </Switch>
           </div>
