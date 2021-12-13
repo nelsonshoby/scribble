@@ -29,7 +29,7 @@ class RedirectionsController < ApplicationController
   end
 
   def create
-    if (redirection = Redirection.new(redirection_params)) && redirection.save!
+    if (redirection = Redirection.new(redirection_params)) && redirection.save
       render status: :ok, json: {
         notice: t("successfully_created", entity: "Redirection")
       }

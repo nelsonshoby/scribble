@@ -16,6 +16,8 @@ const Navbar = () => {
           <Header
             actionBlock={
               <Button
+                size="large"
+                className="mr-2"
                 label="Preview"
                 icon={ExternalLink}
                 style="secondary"

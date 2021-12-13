@@ -21,7 +21,7 @@ const Authentication = () => {
         login: { name: sitename, password: password },
       });
       setAuthHeaders();
-      Logger.warn("authapi", response.data);
+
       sessionStorage.setItem("authToken", response.data.authentication_token);
       window.location.href = `/preview`;
     } catch (error) {

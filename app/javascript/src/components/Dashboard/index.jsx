@@ -31,7 +31,7 @@ const Dashboard = () => {
     try {
       setLoading(true);
       const response = await articleApi.index();
-      Logger.warn("response in article", response.data.articleData);
+
       setArticleData(response.data.articleData);
       const allStatusCount = response.data.draft + response.data.published;
       const draftStatustCount = response.data.draft;

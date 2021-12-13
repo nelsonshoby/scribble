@@ -41,9 +41,7 @@ const EndUserInterface = () => {
     try {
       const response = await categoryApi.loadCategoryAndArticles();
 
-      const data = response.data.category.filter(
-        category => category?.articles.length > 0
-      );
+      const data = response.data.category;
 
       setCategoryData(data);
 
@@ -89,17 +87,19 @@ const EndUserInterface = () => {
     <div className="flex flex-col h-screen">
       {firstArticle?.length && categoryData.length ? (
         <>
-          <Heading className="overflow-y-hidden" siteName={siteName} />
+          <Heading className="overflow-y-hidden " siteName={siteName} />
           <div className="flex flex-auto overflow-y-hidden">
             <SideBar categoryData={categoryData} />
             <Switch>
               {redirectionData?.map((redirection, index) => {
-                <Redirect
-                  key={index}
-                  exact
-                  from={"/preview/" + redirection.From}
-                  to={redirection.To}
-                />;
+                return (
+                  <Redirect
+                    key={index}
+                    exact
+                    path={"/preview/" + redirection.From}
+                    to={"/preview/" + redirection.To}
+                  />
+                );
               })}
               <Redirect exact path="/preview" to={`/preview/${firstArticle}`} />
 
@@ -108,7 +108,6 @@ const EndUserInterface = () => {
                 redirectRoute={`/authentication/${siteName}`}
                 condition={!(siteDetails && !isLoggedIn)}
                 component={() => <ShowArticle key={window.location.pathname} />}
-                // component={ShowArticle}
               />
             </Switch>
           </div>

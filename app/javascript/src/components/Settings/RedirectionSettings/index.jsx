@@ -71,8 +71,8 @@ const RedirectionSettings = () => {
     ListRedirections();
   }, []);
   return (
-    <div className="mx-auto mt-4 overflow-scroll ">
-      <div className="w-720">
+    <div className="mx-auto mt-4 overflow-auto ">
+      <div className="w-720 ">
         <Typography style="h2">Redirections</Typography>
         <Typography style="body1" className="text-gray-600 mt-2">
           {
@@ -83,8 +83,8 @@ const RedirectionSettings = () => {
             </span>
           }
         </Typography>
-        <div className="w-full bg-indigo-100 mt-8">
-          <div className="flex justify-center  ">
+        <div className="w-full bg-indigo-100 mt-8  ">
+          <div className="flex justify-center ">
             <RedirectionTable
               redirectionData={redirectionData}
               handleDelete={handleDelete}

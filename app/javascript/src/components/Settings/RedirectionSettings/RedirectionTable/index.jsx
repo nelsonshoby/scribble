@@ -44,7 +44,7 @@ const RedirectionTable = ({
               >
                 <div className="flex">
                   <Typography style="body2" className="text-gray-400">
-                    {window.location.origin}
+                    {window.location.origin + "/preview"}
                   </Typography>
                   <Typography style="body2">{"/" + ele.From}</Typography>
                 </div>
@@ -58,7 +58,7 @@ const RedirectionTable = ({
                   marginRight: "10%",
                 }}
               >
-                {window.location.origin + "/" + ele.To}
+                {window.location.origin + "/preview/" + ele.To}
               </td>
               <td className="px-2 py-4  text-left  bg-white mt-4   whitespace-no-wrap">
                 <div className="flex">

@@ -92,53 +92,53 @@ const GeneralSettings = () => {
           }
         />
         <div></div>
-        <div className="mt-4">
-          {checked && (
-            <Input
-              label="Password"
-              type="password"
-              onChange={event => setPassword(event.target.value)}
-              placeholder="Enter Password"
-            />
-          )}
-        </div>
         {checked && (
-          <div className="mt-4">
-            {passwordLength ? (
-              <div className="flex ">
-                <Check size={18} color="#00BA88" />{" "}
-                <Typography style="body3">
-                  Have at least 6 characters
-                </Typography>
-              </div>
-            ) : (
-              <div className="flex">
-                <Close size={18} color="#FF0000" />{" "}
-                <Typography style="body3">
-                  Have at least 6 characters
-                </Typography>
-              </div>
-            )}
-          </div>
-        )}
-        {checked && (
-          <div className="mt-4">
-            {letterAndNumber ? (
-              <div className="flex">
-                <Check size={18} color="#00BA88" />{" "}
-                <Typography style="body3">
-                  Include at least 1 letter and 1 number
-                </Typography>
-              </div>
-            ) : (
-              <div className="flex">
-                <Close size={18} color="#FF0000" />{" "}
-                <Typography style="body3">
-                  Include at least 1 letter and 1 number
-                </Typography>
-              </div>
-            )}
-          </div>
+          <>
+            <div className="mt-4">
+              <Input
+                label="Password"
+                type="password"
+                onChange={event => setPassword(event.target.value)}
+                placeholder="Enter Password"
+              />
+            </div>
+
+            <div className="mt-4">
+              {passwordLength ? (
+                <div className="flex ">
+                  <Check size={18} color="#00BA88" />{" "}
+                  <Typography style="body3">
+                    Have at least 6 characters
+                  </Typography>
+                </div>
+              ) : (
+                <div className="flex">
+                  <Close size={18} color="#FF0000" />{" "}
+                  <Typography style="body3">
+                    Have at least 6 characters
+                  </Typography>
+                </div>
+              )}
+            </div>
+
+            <div className="mt-4">
+              {letterAndNumber ? (
+                <div className="flex">
+                  <Check size={18} color="#00BA88" />{" "}
+                  <Typography style="body3">
+                    Include at least 1 letter and 1 number
+                  </Typography>
+                </div>
+              ) : (
+                <div className="flex">
+                  <Close size={18} color="#FF0000" />{" "}
+                  <Typography style="body3">
+                    Include at least 1 letter and 1 number
+                  </Typography>
+                </div>
+              )}
+            </div>
+          </>
         )}
 
         <div className="flex-col mt-4">
