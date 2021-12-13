@@ -6,4 +6,9 @@ class SiteDetail < ApplicationRecord
   has_secure_token :authentication_token
   validates :name, presence: true
   validates :password, length: { minimum: MIN_PASSWORD_LENGTH }, if: -> { self.password_digest? }
+
+  validates :password, format: { with: /\d/, message: "must have atleast 1 number" }, if: -> {
+ self.password_digest? }
+  validates :password, format: { with: /[a-zA-Z]/, message: "must have atleast 1 letter" }, if: -> {
+ self.password_digest? }
 end
