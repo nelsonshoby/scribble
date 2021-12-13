@@ -5,14 +5,15 @@ import Logger from "js-logger";
 import { either, isEmpty, isNil } from "ramda";
 import { Redirect, Switch } from "react-router-dom";
 
+import categoryApi from "apis/category";
+import redirectionApi from "apis/redirection";
+import sitedetailApi from "apis/sitedetail";
+import PrivateRoute from "common/PrivateRoute";
+
 import Heading from "./Heading";
 import NoDataFound from "./NoDataFound";
 import ShowArticle from "./ShowArticle";
 import SideBar from "./SideBar";
-
-import categoryApi from "../../apis/category";
-import sitedetailApi from "../../apis/sitedetail";
-import PrivateRoute from "../../common/PrivateRoute";
 
 const EndUserInterface = () => {
   const [categoryData, setCategoryData] = useState([]);
@@ -20,18 +21,27 @@ const EndUserInterface = () => {
   const [siteDetails, setSiteDetails] = useState(false);
   const [siteName, setSiteName] = useState();
   const [loading, setLoading] = useState(true);
+  const [redirectionData, setRedirectionData] = useState([]);
 
   const authToken = sessionStorage.getItem("authToken");
 
   var isLoggedIn = !either(isNil, isEmpty)(authToken) && authToken !== "null";
 
+  const ListRedirections = async () => {
+    try {
+      const response = await redirectionApi.index();
+
+      setRedirectionData(response.data.redirection);
+    } catch (error) {
+      Logger.error(error);
+    }
+  };
+
   const LoadCategoryAndArticleDetails = async () => {
     try {
       const response = await categoryApi.loadCategoryAndArticles();
 
-      const data = response.data.category.filter(
-        category => category?.articles.length > 0
-      );
+      const data = response.data.category;
 
       setCategoryData(data);
 
@@ -62,6 +72,7 @@ const EndUserInterface = () => {
   useEffect(() => {
     LoadCategoryAndArticleDetails();
     LoadSiteDetails();
+    ListRedirections();
   }, []);
 
   if (loading) {
@@ -76,17 +87,27 @@ const EndUserInterface = () => {
     <div className="flex flex-col h-screen">
       {firstArticle?.length && categoryData.length ? (
         <>
-          <Heading className="overflow-y-hidden" siteName={siteName} />
+          <Heading className="overflow-y-hidden " siteName={siteName} />
           <div className="flex flex-auto overflow-y-hidden">
             <SideBar categoryData={categoryData} />
             <Switch>
+              {redirectionData?.map((redirection, index) => {
+                return (
+                  <Redirect
+                    key={index}
+                    exact
+                    path={"/preview/" + redirection.From}
+                    to={"/preview/" + redirection.To}
+                  />
+                );
+              })}
               <Redirect exact path="/preview" to={`/preview/${firstArticle}`} />
 
               <PrivateRoute
                 path="/preview/:slug"
                 redirectRoute={`/authentication/${siteName}`}
                 condition={!(siteDetails && !isLoggedIn)}
-                component={ShowArticle}
+                component={() => <ShowArticle key={window.location.pathname} />}
               />
             </Switch>
           </div>

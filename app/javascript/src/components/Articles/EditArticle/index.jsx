@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 import Logger from "js-logger";
 import { useParams } from "react-router";
 
-import articleApi from "../../../apis/article";
+import articleApi from "apis/article";
+
 import NewArticleForm from "../NewArticleForm";
 
 const EditArticle = () => {
@@ -22,13 +23,14 @@ const EditArticle = () => {
     try {
       const response = await articleApi.show(id);
       const articleData = response.data.article;
+      Logger.warn("articleData", response.data.article.status);
+      setArticlePublished(articleData.status);
       setArticleTitle(articleData.title);
       setArticleCategory({
         label: articleData.category,
         value: articleData.category,
       });
       setArticleBody(articleData.content);
-      setArticlePublished(articleData.status);
     } catch (error) {
       Logger.error(error);
     }

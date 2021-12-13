@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_11_131318) do
+ActiveRecord::Schema.define(version: 2021_12_12_161735) do
 
   create_table "articles", force: :cascade do |t|
     t.text "title", null: false
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 2021_12_11_131318) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "sequence"
+    t.index ["name"], name: "index_categories_on_name", unique: true
   end
 
   create_table "redirections", force: :cascade do |t|
@@ -38,6 +39,7 @@ ActiveRecord::Schema.define(version: 2021_12_11_131318) do
     t.string "To"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["From"], name: "index_redirections_on_From", unique: true
   end
 
   create_table "site_details", force: :cascade do |t|

@@ -4,7 +4,7 @@ import { Typography } from "@bigbinary/neetoui/v2";
 
 const Heading = ({ siteName }) => {
   return (
-    <div className="h-56 w-full flex justify-center items-center border-b-2">
+    <div className="max-h-56 w-full flex justify-center items-center border-b-2 p-4">
       <Typography style="h4">{siteName}</Typography>
     </div>
   );

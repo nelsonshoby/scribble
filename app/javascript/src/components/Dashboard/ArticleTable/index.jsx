@@ -38,7 +38,7 @@ const ArticleTable = ({
         title: option.toUpperCase(),
         width: option === "Category" ? 150 : null,
 
-        className: option !== "Title" ? "text-gray-600" : null,
+        className: option !== "Title" ? "text-gray-600 " : null,
       }))
     );
   };
@@ -46,11 +46,6 @@ const ArticleTable = ({
   useEffect(() => {
     filterTableColumn();
   }, [tableColumn]);
-
-  useEffect(
-    () => [Logger.warn("filteredColumn", filteredColumn)],
-    [filteredColumn]
-  );
 
   const RowData = articleData
     .filter(article => {
@@ -85,7 +80,7 @@ const ArticleTable = ({
   return (
     <div className="h-full">
       <Table
-        className="even:bg-gray-100 cursor-auto  text-indigo-500"
+        className="even:bg-gray-100 cursor-auto  text-indigo-500 text-sm"
         rowSelection={false}
         columnData={[
           ...filteredColumn,

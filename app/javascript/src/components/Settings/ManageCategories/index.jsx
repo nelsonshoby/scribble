@@ -37,10 +37,13 @@ const ManageCategories = () => {
 
   const handleSubmit = async () => {
     try {
-      if (newCategory.length !== 0) {
+      if (name === "") {
+        toast.error("Category name can't be blank.", TOASTR_OPTIONS);
+      } else {
         await categoryApi.create({ name });
+        Logger.warn("categoryList", categoryList);
         ListCategories();
-      } else toast.error("Category name can't be blank.", TOASTR_OPTIONS);
+      }
     } catch (error) {
       Logger.error(error);
     }
@@ -62,7 +65,7 @@ const ManageCategories = () => {
       const response = await categoryApi.index();
 
       setCategoryList(response.data.category);
-      Logger.warn("categoryList", categoryList);
+
       setUpdateCategory(response.data.category);
       setEditableId(null);
     } catch (error) {
@@ -92,42 +95,42 @@ const ManageCategories = () => {
   }
 
   return (
-    <div className="mx-auto ">
-      <div className="w-720 mt-4">
-        <Typography style="h2">Manage Categories</Typography>
-        <Typography style="body1" className="text-gray-600 mt-2">
-          Create and configure the categories inside your scribble.
-        </Typography>
+    <DragDropContext onDragEnd={handleOnDragEnd}>
+      <div className="mx-auto  overflow-y-auto">
+        <div className="w-720 mt-4">
+          <Typography style="h2">Manage Categories</Typography>
+          <Typography style="body1" className="text-gray-600 mt-2">
+            Create and configure the categories inside your scribble.
+          </Typography>
 
-        <div className="w-260 ">
-          {newCategory ? (
-            <Button
-              label="Add New Category"
-              className="my-8 "
-              icon={Plus}
-              style="link"
-              iconPosition="left"
-              onClick={() => {
-                setNewCategory(false);
-                setEditableId(null), setName(null);
-              }}
-            />
-          ) : (
-            <div className=" flex  items-center ">
-              <div className="mt-2">
-                <CreateOrEditCategory
-                  handleSubmit={handleSubmit}
-                  setEditableId={setEditableId}
-                  setName={setName}
-                  name={name}
-                  setNewCategory={setNewCategory}
-                />
+          <div className="w-260 ">
+            {newCategory ? (
+              <Button
+                label="Add New Category"
+                className="my-8 "
+                icon={Plus}
+                style="link"
+                iconPosition="left"
+                onClick={() => {
+                  setNewCategory(false);
+                  setEditableId(null), setName("");
+                }}
+              />
+            ) : (
+              <div className=" flex  items-center ">
+                <div className="mt-2">
+                  <CreateOrEditCategory
+                    handleSubmit={handleSubmit}
+                    setEditableId={setEditableId}
+                    setName={setName}
+                    name={name}
+                    setNewCategory={setNewCategory}
+                  />
+                </div>
               </div>
-            </div>
-          )}
-        </div>
-        <div className="w-641">
-          <DragDropContext onDragEnd={handleOnDragEnd}>
+            )}
+          </div>
+          <div className="w-641">
             <Droppable droppableId="category">
               {provided => (
                 <ul
@@ -217,10 +220,10 @@ const ManageCategories = () => {
                 </ul>
               )}
             </Droppable>
-          </DragDropContext>
+          </div>
         </div>
       </div>
-    </div>
+    </DragDropContext>
   );
 };
 

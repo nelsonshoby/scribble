@@ -1,8 +1,7 @@
 import React from "react";
 
 import { ExternalLink } from "@bigbinary/neeto-icons";
-import { Button } from "@bigbinary/neetoui/v2";
-import { Typography } from "@bigbinary/neetoui/v2";
+import { Typography, Button } from "@bigbinary/neetoui/v2";
 import { Header } from "@bigbinary/neetoui/v2/layouts";
 import { NavLink } from "react-router-dom";
 
@@ -17,6 +16,8 @@ const Navbar = () => {
           <Header
             actionBlock={
               <Button
+                size="large"
+                className="mr-2"
                 label="Preview"
                 icon={ExternalLink}
                 style="secondary"

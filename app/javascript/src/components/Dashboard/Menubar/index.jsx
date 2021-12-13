@@ -6,7 +6,8 @@ import { MenuBar } from "@bigbinary/neetoui/v2/layouts";
 import Logger from "js-logger";
 import { toast } from "react-toastify";
 
-import categoryApi from "../../../apis/category";
+import categoryApi from "apis/category";
+
 import { TOASTR_OPTIONS } from "../../../constants";
 
 const Menubar = ({

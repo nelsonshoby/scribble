@@ -10,7 +10,8 @@ import {
 } from "@bigbinary/neetoui/v2";
 import Logger from "js-logger";
 
-import categoryApi from "../../apis/category";
+import categoryApi from "apis/category";
+
 import Navbar from "../Dashboard/Navbar";
 
 const NewArticleForm = ({
@@ -90,27 +91,21 @@ const NewArticleForm = ({
         />
         <div className="flex mt-2">
           <Button
-            className="bg-indigo-500"
-            label={
-              articlePublished === "Published" || articlePublished === 1
-                ? "Publish"
-                : "Save Draft"
-            }
+            className="bg-indigo-500 "
+            label={articlePublished ? "Publish" : "Save Draft"}
             onClick={() => handleSubmit()}
           />
           <Dropdown
             closeOnSelect={false}
             autoWidth={false}
             buttonStyle="bg-indigo-500"
-            className="bg-indigo-500 text-white"
+            className="bg-indigo-500 text-white border-l-2"
             position="bottom-end"
           >
             <li>
               <Checkbox
                 id="checkbox_name"
-                checked={
-                  articlePublished === "Published" || articlePublished === 1
-                }
+                checked={articlePublished}
                 style={{ color: "#6366F1", borderRadius: "5px" }}
                 label="Publish"
                 onClick={event =>

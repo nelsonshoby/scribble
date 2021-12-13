@@ -5,12 +5,14 @@ import { Typography, Input, Checkbox, Button } from "@bigbinary/neetoui/v2";
 import Logger from "js-logger";
 import { toast } from "react-toastify";
 
-import sitedetailApi from "../../../apis/sitedetail";
+import sitedetailApi from "apis/sitedetail";
+
 import { TOASTR_OPTIONS } from "../../../constants";
 
 const GeneralSettings = () => {
   const [checked, setChecked] = useState(false);
   const [password, setPassword] = useState("");
+
   const [siteName, setSiteName] = useState("");
   const [passwordLength, setPasswordLength] = useState(false);
   const [letterAndNumber, setLetterAndNumber] = useState(false);
@@ -18,6 +20,7 @@ const GeneralSettings = () => {
   const ShowSiteDetails = async () => {
     try {
       const response = await sitedetailApi.show();
+
       setSiteName(response.data.sitedetail.name);
     } catch (error) {
       Logger.error(error);
@@ -89,53 +92,53 @@ const GeneralSettings = () => {
           }
         />
         <div></div>
-        <div className="mt-4">
-          {checked && (
-            <Input
-              label="Password"
-              type="password"
-              onChange={event => setPassword(event.target.value)}
-              placeholder="Enter Password"
-            />
-          )}
-        </div>
         {checked && (
-          <div className="mt-4">
-            {passwordLength ? (
-              <div className="flex ">
-                <Check size={18} color="#00BA88" />{" "}
-                <Typography style="body3">
-                  Have at least 6 characters
-                </Typography>
-              </div>
-            ) : (
-              <div className="flex">
-                <Close size={18} color="#FF0000" />{" "}
-                <Typography style="body3">
-                  Have at least 6 characters
-                </Typography>
-              </div>
-            )}
-          </div>
-        )}
-        {checked && (
-          <div className="mt-4">
-            {letterAndNumber ? (
-              <div className="flex">
-                <Check size={18} color="#00BA88" />{" "}
-                <Typography style="body3">
-                  Include at least 1 letter and 1 number
-                </Typography>
-              </div>
-            ) : (
-              <div className="flex">
-                <Close size={18} color="#FF0000" />{" "}
-                <Typography style="body3">
-                  Include at least 1 letter and 1 number
-                </Typography>
-              </div>
-            )}
-          </div>
+          <>
+            <div className="mt-4">
+              <Input
+                label="Password"
+                type="password"
+                onChange={event => setPassword(event.target.value)}
+                placeholder="Enter Password"
+              />
+            </div>
+
+            <div className="mt-4">
+              {passwordLength ? (
+                <div className="flex ">
+                  <Check size={18} color="#00BA88" />{" "}
+                  <Typography style="body3">
+                    Have at least 6 characters
+                  </Typography>
+                </div>
+              ) : (
+                <div className="flex">
+                  <Close size={18} color="#FF0000" />{" "}
+                  <Typography style="body3">
+                    Have at least 6 characters
+                  </Typography>
+                </div>
+              )}
+            </div>
+
+            <div className="mt-4">
+              {letterAndNumber ? (
+                <div className="flex">
+                  <Check size={18} color="#00BA88" />{" "}
+                  <Typography style="body3">
+                    Include at least 1 letter and 1 number
+                  </Typography>
+                </div>
+              ) : (
+                <div className="flex">
+                  <Close size={18} color="#FF0000" />{" "}
+                  <Typography style="body3">
+                    Include at least 1 letter and 1 number
+                  </Typography>
+                </div>
+              )}
+            </div>
+          </>
         )}
 
         <div className="flex-col mt-4">
@@ -148,7 +151,12 @@ const GeneralSettings = () => {
             }}
           />
 
-          <Button label="Cancel" style="text" to="/settings" />
+          <Button
+            label="Cancel"
+            style="text"
+            to="/settings/General"
+            onClick={() => setChecked(false)}
+          />
         </div>
       </div>
     </div>
