@@ -28,7 +28,7 @@ const ShowArticle = () => {
   }, []);
 
   return (
-    <div className="w-1069 flex-col m-8 overflow-scroll">
+    <div className="w-1069 flex-col m-8 overflow-scroll ">
       <Typography style="h1" className="text-4xl text-gray-800 ">
         {articleData?.title}
       </Typography>
