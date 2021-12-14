@@ -21,9 +21,11 @@ module.exports = {
         '210': '210px',
         '402': '402px',
         '242': '242px',
+        '305': '305px',
        },
        height: {'56': '56px',
-       '219': '219px'
+       '219': '219px',
+       '415': '415px',
 
       },
 
@@ -32,7 +34,7 @@ module.exports = {
   },
 
   variants: {
-    backgroundColor: ["even"],
+    backgroundColor: ["odd"],
     // backgroundColor: ["even", "hover"],
     textColor: ["first"],
 

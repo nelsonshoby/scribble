@@ -17,14 +17,14 @@ const AddOrUpdateRedirection = ({
       <td className="px-2 py-4 text-left bg-white mt-4 ">
         <Input
           value={newFrom}
-          placeholder={window.location.origin}
+          placeholder={window.location.origin + "/preview/"}
           onChange={e => setNewFrom(e.target.value)}
         />
       </td>
       <td className="px-2 py-4 text-left bg-white mt-4 ">
         <Input
           value={newTo}
-          placeholder={window.location.origin}
+          placeholder={window.location.origin + "/preview/"}
           onChange={e => setNewTo(e.target.value)}
         />
       </td>

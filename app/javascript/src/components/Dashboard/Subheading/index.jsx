@@ -20,6 +20,7 @@ const Subheading = ({ tableColumn, setTableColumn, setSearchedArticle }) => {
     <div className="flex  justify-end">
       <div className="flex ">
         <Input
+          className="w-305"
           prefix={<Search />}
           placeholder="Search article title"
           onChange={event => setSearchedArticle(event.target.value)}
@@ -35,17 +36,22 @@ const Subheading = ({ tableColumn, setTableColumn, setSearchedArticle }) => {
           label="Columns"
           position="bottom-end"
         >
-          {columnNames.map((option, index) => (
-            <li key={index}>
-              <Checkbox
-                checked={tableColumn.includes(option)}
-                id={option}
-                label={option}
-                onChange={event => handleChange(event, option)}
-                style={{ color: "#6366F1", borderRadius: "5px" }}
-              />
-            </li>
-          ))}
+          <ul className="capitalize ml-3">
+            <span className="font-bold text-gray-800 mt-11 pb-4 ml-4">
+              Columns
+            </span>
+            {columnNames.map((option, index) => (
+              <li key={index}>
+                <Checkbox
+                  checked={tableColumn.includes(option)}
+                  id={option}
+                  label={option}
+                  onChange={event => handleChange(event, option)}
+                  style={{ color: "#6366F1", borderRadius: "5px" }}
+                />
+              </li>
+            ))}
+          </ul>
         </Dropdown>
 
         <Button
