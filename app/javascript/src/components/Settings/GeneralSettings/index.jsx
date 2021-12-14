@@ -147,7 +147,7 @@ const GeneralSettings = () => {
             label="Save Changes"
             onClick={() => {
               handleSubmit();
-              setChecked(false);
+              password === "" ? null : setChecked(false);
             }}
           />
 
