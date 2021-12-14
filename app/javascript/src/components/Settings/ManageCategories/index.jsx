@@ -152,7 +152,6 @@ const ManageCategories = () => {
                               key={category.id}
                               ref={provided.innerRef}
                               {...provided.draggableProps}
-                              {...provided.dragHandleProps}
                             >
                               <div className="flex  items-center w-2/4">
                                 <Button
@@ -171,6 +170,7 @@ const ManageCategories = () => {
                                     </svg>
                                   )}
                                   style="text"
+                                  {...provided.dragHandleProps}
                                   className="mr-2"
                                 />
                                 <Typography style="h4">

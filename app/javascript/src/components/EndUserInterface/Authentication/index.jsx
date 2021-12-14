@@ -41,12 +41,11 @@ const Authentication = () => {
           <Typography style="h5" className="text-2xl">
             {sitename} is password protected!
           </Typography>
-          <Typography style="body1" className="text-gray-600 ">
-            {" "}
+          <Typography style="body1" className="text-gray-600 mt-2">
             Enter the password to gain access to spinkart.
           </Typography>
           <Input
-            className="mt-2"
+            className="mt-4"
             label="Password"
             placeholder="Enter Password"
             type="password"

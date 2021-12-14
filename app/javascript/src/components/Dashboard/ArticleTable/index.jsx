@@ -80,7 +80,7 @@ const ArticleTable = ({
   return (
     <div className="h-full">
       <Table
-        className="even:bg-gray-100 cursor-auto  text-indigo-500 text-sm"
+        className="odd:bg-gray-100 cursor-auto  text-indigo-500 text-sm"
         rowSelection={false}
         columnData={[
           ...filteredColumn,

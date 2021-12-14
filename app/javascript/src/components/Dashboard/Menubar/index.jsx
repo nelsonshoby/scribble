@@ -120,23 +120,25 @@ const Menubar = ({
             />
           </div>
         )}
-        {categoryList
-          ?.filter(category =>
-            category.name.toLowerCase().includes(searchCategory.toLowerCase())
-          )
-          .map((category, index) => (
-            <MenuBar.Block
-              label={category.name}
-              key={index}
-              count={category.count}
-              active={category.name === selectedCategory}
-              onClick={() => {
-                category.name === selectedCategory
-                  ? setSelectedCategory(null)
-                  : setSelectedCategory(category.name);
-              }}
-            />
-          ))}
+        <div className="overflow-scroll h-415">
+          {categoryList
+            ?.filter(category =>
+              category.name.toLowerCase().includes(searchCategory.toLowerCase())
+            )
+            .map((category, index) => (
+              <MenuBar.Block
+                label={category.name}
+                key={index}
+                count={category.count}
+                active={category.name === selectedCategory}
+                onClick={() => {
+                  category.name === selectedCategory
+                    ? setSelectedCategory(null)
+                    : setSelectedCategory(category.name);
+                }}
+              />
+            ))}{" "}
+        </div>
       </MenuBar>
     </div>
   );
